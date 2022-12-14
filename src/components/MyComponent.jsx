@@ -20,12 +20,16 @@ export default class MyComponent extends Component {
         })
     }
     handleOnMouseOver = (event) => {
-        console.log(event.target);
+        // 
+        console.log("Random: ", Math.floor(Math.random() * 100) + 1);
+        this.setState({
+            age: Math.floor(Math.random() * 100) + 1,
+        })
     }
   render() {
     return (
         <>
-            <div>MyComponent {Math.random()}</div>
+            <div>MyComponent</div>
             <div>Name: {this.state.name}</div>
             <div>Age: {this.state.age}</div>
             <div>Address: {this.state.address}</div>
