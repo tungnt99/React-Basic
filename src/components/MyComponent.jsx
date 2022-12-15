@@ -6,7 +6,13 @@ export default class MyComponent extends Component {
     state = {
         name: 'Thanh Tung',
         age: "24",
-        address: "HN"
+        address: "HN",
+        listUsers: [
+            {id: 1, name: "Thanh Tung", age: "25"},
+            {id: 2, name: "Nguyen Thanh Tung", age: "24"},
+            {id: 3, name: "Tung Biu", age: "26"},
+
+        ],
     }
     handleClick = (event) => {
         this.setState({
@@ -45,8 +51,7 @@ export default class MyComponent extends Component {
                 <div className='form-react mt-3 container'>
                     <UserInfo />
                     <DisplayInfo 
-                        name= {this.state.name}
-                        age= {this.state.age}
+                       listUsers={this.state.listUsers}
                     />
                 </div>
 

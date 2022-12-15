@@ -3,11 +3,16 @@ import React, { Component } from 'react'
 export default class DisplayInfo extends Component {
   render() {
     // props
-    let {name, age} = this.props
+    let {listUsers} = this.props
     return (
       <div>
-        <div>My name: {name}</div>
-        <div>My Age: {age}</div>
+        {listUsers && listUsers.length > 0 && listUsers.map(item => {
+          return(
+            <div key={item.id}>
+              <div>{item.name} - {item.age}</div>
+            </div>
+          )
+        })}
       </div>
     )
   }
