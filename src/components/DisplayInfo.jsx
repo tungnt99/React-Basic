@@ -7,8 +7,9 @@ export default class DisplayInfo extends Component {
     return (
       <div>
         {listUsers && listUsers.length > 0 && listUsers.map(item => {
+          
           return(
-            <div key={item.id}>
+            <div key={item.id} className={+item.age > 18 ? "green": "red"}>
               <div>{item.name} - {item.age}</div>
             </div>
           )

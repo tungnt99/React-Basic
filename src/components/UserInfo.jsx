@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 
 export default class UserInfo extends Component {
     state = {
-        name: 'Thanh Tung',
-        age: "24",
-        address: ""
+        age: "",
+        address: "",
+        showForm: false
+    }
+    handleShowHide = () => {
+        this.setState({
+            showForm: !this.state.showForm
+        });
     }
     handleOnChangeAddress = (event) => {
         this.setState({
@@ -20,30 +25,41 @@ export default class UserInfo extends Component {
     handleOnSubmit = (event) => {
         event.preventDefault();
         this.setState({
-            diachi: this.state.address
+            diachi: this.state.address,
+            tuoi: this.state.age
         })
         this.setState({
-            address: ''
+            address: '',
+            age: ''
         })
     }
     render() {
+        let { showForm } = this.state;
         return (
-            <div>
-                <form onSubmit={(event) => this.handleOnSubmit(event)}>
-                    <div className='form-group'>
-                        <label className='form-label'>Your name:</label>
-                        <input type="text" className='form-control' value={this.state.address} onChange={(event) => this.handleOnChangeAddress(event)} />
-                    </div>
-                    <div className='form-group'>
-                        <label className='form-label'>Age:</label>
-                        <input type="number" className='form-control' value={this.state.age} onChange={(event) => this.handleOnChangeAge(event)} />
-                    </div>
-                    <div className='form-group mt-3'>
-                        <button className='btn btn-warning'>Submit</button>
-                    </div>
-                </form>
-                <div>{this.state.diachi}</div>
-            </div>
+            <>
+                {showForm === false && <div><button onClick={this.handleShowHide}>Show</button></div>}
+                {showForm &&
+                    <>
+                        <div><button onClick={this.handleShowHide}>Hide</button></div>
+                        <div>
+                            <form onSubmit={(event) => this.handleOnSubmit(event)}>
+                                <div className='form-group'>
+                                    <label className='form-label'>Your name:</label>
+                                    <input type="text" className='form-control' value={this.state.address} onChange={(event) => this.handleOnChangeAddress(event)} />
+                                </div>
+                                <div className='form-group'>
+                                    <label className='form-label'>Age:</label>
+                                    <input type="number" className='form-control' value={this.state.age} onChange={(event) => this.handleOnChangeAge(event)} />
+                                </div>
+                                <div className='form-group mt-3'>
+                                    <button className='btn btn-warning'>Submit</button>
+                                </div>
+                            </form>
+                            <div>{this.state.diachi} - {this.state.tuoi}</div>
+                        </div>
+                    </>
+                }
+            </>
         )
     }
 }

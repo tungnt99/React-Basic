@@ -8,9 +8,9 @@ export default class MyComponent extends Component {
         age: "24",
         address: "HN",
         listUsers: [
-            {id: 1, name: "Thanh Tung", age: "25"},
-            {id: 2, name: "Nguyen Thanh Tung", age: "24"},
-            {id: 3, name: "Tung Biu", age: "26"},
+            {id: 1, name: "Thanh Tung", age: "14"},
+            {id: 2, name: "Nguyen Thanh Tung", age: "15"},
+            {id: 3, name: "Tung Biu", age: "19"},
 
         ],
     }
