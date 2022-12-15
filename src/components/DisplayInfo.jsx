@@ -10,7 +10,12 @@ export default class DisplayInfo extends Component {
           
           return(
             <div key={item.id} className={+item.age > 18 ? "green": "red"}>
-              <div>{item.name} - {item.age}</div>
+              <div className='d-flex justify-content-center align-items-center'>
+                <div>{item.name} - {item.age}</div>
+                <span><button onClick={() => this.props.onClick(item)}>Delete</button></span>
+
+              </div>
+
             </div>
           )
         })}

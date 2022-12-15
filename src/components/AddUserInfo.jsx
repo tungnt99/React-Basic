@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-export default class UserInfo extends Component {
+export default class AddUserInfo extends Component {
     state = {
+        name: "",
         age: "",
-        address: "",
         showForm: false
     }
     handleShowHide = () => {
@@ -11,9 +11,9 @@ export default class UserInfo extends Component {
             showForm: !this.state.showForm
         });
     }
-    handleOnChangeAddress = (event) => {
+    handleOnChangeName = (event) => {
         this.setState({
-            address: event.target.value
+            name: event.target.value
         })
     }
     handleOnChangeAge = (event) => {
@@ -24,12 +24,18 @@ export default class UserInfo extends Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        this.setState({
-            diachi: this.state.address,
-            tuoi: this.state.age
+        if (!this.state.name || !this.state.age) {
+            alert('Missing required params')
+            return;
+        }
+        this.props.handleAddUser({
+            id: Math.floor(Math.random() * 1001),
+            name: this.state.name,
+            age: this.state.age
         })
+      
         this.setState({
-            address: '',
+            name: '',
             age: ''
         })
     }
@@ -45,7 +51,7 @@ export default class UserInfo extends Component {
                             <form onSubmit={(event) => this.handleOnSubmit(event)}>
                                 <div className='form-group'>
                                     <label className='form-label'>Your name:</label>
-                                    <input type="text" className='form-control' value={this.state.address} onChange={(event) => this.handleOnChangeAddress(event)} />
+                                    <input type="text" className='form-control' value={this.state.name} onChange={(event) => this.handleOnChangeName(event)} />
                                 </div>
                                 <div className='form-group'>
                                     <label className='form-label'>Age:</label>
@@ -55,7 +61,6 @@ export default class UserInfo extends Component {
                                     <button className='btn btn-warning'>Submit</button>
                                 </div>
                             </form>
-                            <div>{this.state.diachi} - {this.state.tuoi}</div>
                         </div>
                     </>
                 }

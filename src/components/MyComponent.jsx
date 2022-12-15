@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DisplayInfo from './DisplayInfo'
-import UserInfo from './UserInfo'
+import AddUserInfo from './AddUserInfo'
 
 export default class MyComponent extends Component {
     state = {
@@ -34,7 +34,19 @@ export default class MyComponent extends Component {
             age: Math.floor(Math.random() * 100) + 1,
         })
     }
+    handleAddUser = (user) => {
+        this.setState({
+            listUsers: [user, ...this.state.listUsers]
+        })
+      }
 
+      deleteUser = (user) => {
+        let currentUsers = this.state.listUsers;
+        currentUsers = currentUsers.filter((item) => item.id !== user.id);
+        this.setState({
+            listUsers: currentUsers
+        })
+      }
     render() {
         return (
             <>
@@ -49,9 +61,13 @@ export default class MyComponent extends Component {
                     <button className='btn btn-danger' onMouseOver={(event) => this.handleOnMouseOver(event)}>Hover me!</button>
                 </div>
                 <div className='form-react mt-3 container'>
-                    <UserInfo />
+                    <AddUserInfo 
+                        handleAddUser={this.handleAddUser}
+                    />
                     <DisplayInfo 
                        listUsers={this.state.listUsers}
+                        onClick={this.deleteUser}
+
                     />
                 </div>
 
