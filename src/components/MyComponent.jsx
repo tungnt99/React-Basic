@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DisplayInfo from './DisplayInfo'
 import UserInfo from './UserInfo'
 
 export default class MyComponent extends Component {
@@ -27,7 +28,7 @@ export default class MyComponent extends Component {
             age: Math.floor(Math.random() * 100) + 1,
         })
     }
-   
+
     render() {
         return (
             <>
@@ -42,8 +43,11 @@ export default class MyComponent extends Component {
                     <button className='btn btn-danger' onMouseOver={(event) => this.handleOnMouseOver(event)}>Hover me!</button>
                 </div>
                 <div className='form-react mt-3 container'>
-                <UserInfo />
-                   
+                    <UserInfo />
+                    <DisplayInfo 
+                        name= {this.state.name}
+                        age= {this.state.age}
+                    />
                 </div>
 
             </>

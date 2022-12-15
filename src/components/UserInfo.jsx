@@ -4,7 +4,7 @@ export default class UserInfo extends Component {
     state = {
         name: 'Thanh Tung',
         age: "24",
-        address: "HN"
+        address: ""
     }
     handleOnChangeAddress = (event) => {
         this.setState({
@@ -19,7 +19,12 @@ export default class UserInfo extends Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        console.log("state: ", this.state);
+        this.setState({
+            diachi: this.state.address
+        })
+        this.setState({
+            address: ''
+        })
     }
     render() {
         return (
@@ -37,6 +42,7 @@ export default class UserInfo extends Component {
                         <button className='btn btn-warning'>Submit</button>
                     </div>
                 </form>
+                <div>{this.state.diachi}</div>
             </div>
         )
     }
