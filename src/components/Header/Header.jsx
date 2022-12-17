@@ -2,28 +2,28 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Thanh Tung</Navbar.Brand>
+        <NavLink className="nav-link fw-bold" to="/">Thanh Tung</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">User</Nav.Link>
-            <Nav.Link href="#link">Admin</Nav.Link>
-
+            <NavLink className="nav-link" activeclassname="active" to="/">Home</NavLink>
+            <NavLink className="nav-link" activeclassname="active" to="/user">User</NavLink>
+            <NavLink className="nav-link" activeclassname="active" to="/admin">Admin</NavLink>
           </Nav>
           <Nav>
 
             <NavDropdown title="Setting" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Login</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavLink className='nav-link' to="#action/3.1">Login</NavLink>
+              <NavLink className='nav-link' to="#action/3.2">
                 Logout
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
+              </NavLink>
+              <NavLink className='nav-link' to="#action/3.3">Profile</NavLink>
              
             </NavDropdown>
           </Nav>
