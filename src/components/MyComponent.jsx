@@ -1,77 +1,65 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import DisplayInfo from './DisplayInfo'
 import AddUserInfo from './AddUserInfo'
 
-export default class MyComponent extends Component {
-    state = {
-        name: 'Thanh Tung',
-        age: "24",
-        address: "HN",
-        listUsers: [
-            {id: 1, name: "Thanh Tung", age: "14"},
-            {id: 2, name: "Nguyen Thanh Tung", age: "15"},
-            {id: 3, name: "Tung Biu", age: "19"},
 
-        ],
+export default function MyComponent(props) {
+    const [name, setName] = useState('Thanh Tung');
+    const [age, setAge] = useState('24');
+    const [address, setAddress] = useState('Ha Noi');
+    const [listUsers, setListUsers] = useState([
+        { id: 1, name: "Thanh Tung", age: "14" },
+        { id: 2, name: "Nguyen Thanh Tung", age: "15" },
+        { id: 3, name: "Tung Biu", age: "19" },
+    ]);
+
+    const handleClick = (event) => {
+        setName('Nguyen Thanh Tung');
+        setAge('25');
+        setAddress('Hoai Duc');
+
     }
-    handleClick = (event) => {
-        this.setState({
-            name: "Nguyen Thanh Tung",
-            age: "25",
-            address: "Hoai Duc",
-        })
-        // console.log(event.target)
+    const handleOnChange = (event) => {
+        setName(event.target.value);
     }
-    handleOnChange = (event) => {
-        this.setState({
-            name: event.target.value
-        })
-    }
-    handleOnMouseOver = (event) => {
-        // 
+    const handleOnMouseOver = (event) => {
         // console.log("Random: ", Math.floor(Math.random() * 100) + 1);
-        this.setState({
-            age: Math.floor(Math.random() * 100) + 1,
-        })
+        setAge(Math.floor(Math.random() * 100) + 1);
     }
-    handleAddUser = (user) => {
-        this.setState({
-            listUsers: [user, ...this.state.listUsers]
-        })
-      }
+    const handleAddUser = (user) => {
+        
+        setListUsers([user, ...listUsers])
+    }
 
-      deleteUser = (user) => {
-        let currentUsers = this.state.listUsers;
+    const deleteUser = (user) => {
+        let currentUsers = listUsers;
         currentUsers = currentUsers.filter((item) => item.id !== user.id);
-        this.setState({
-            listUsers: currentUsers
-        })
-      }
-    render() {
-        return (
-            <>
-                <div className='react-basic'>
-                    <div>MyComponent</div>
-                    <div>Name: {this.state.name}</div>
-                    <div>Age: {this.state.age}</div>
-                    <div>Address: {this.state.address}</div>
-
-                    <input type="text" value={this.state.name} onChange={(event) => this.handleOnChange(event)} />
-                    <button className='btn btn-danger' onClick={(event) => this.handleClick(event)}>Click me!</button>
-                    <button className='btn btn-danger' onMouseOver={(event) => this.handleOnMouseOver(event)}>Hover me!</button>
-                </div>
-                <div className='form-react mt-3 container'>
-                    <AddUserInfo 
-                        handleAddUser={this.handleAddUser}
-                    />
-                    <DisplayInfo 
-                       listUsers={this.state.listUsers}
-                        onClick={this.deleteUser}
-
-                    />
-                </div>
-
-            </>
-        )
+       
+        setListUsers(currentUsers);
     }
+    return (
+        <>
+            <div className='react-basic'>
+                <div>MyComponent</div>
+                <div>Name: {name}</div>
+                <div>Age: {age}</div>
+                <div>Address: {address}</div>
+
+                <input type="text" value={name} onChange={(event) => handleOnChange(event)} />
+                <button className='btn btn-danger' onClick={(event) => handleClick(event)}>Click me!</button>
+                <button className='btn btn-danger' onMouseOver={(event) => handleOnMouseOver(event)}>Hover me!</button>
+            </div>
+            <div className='form-react mt-3 container'>
+                <AddUserInfo
+                    handleAddUser={handleAddUser}
+                />
+                <DisplayInfo
+                    listUsers={listUsers}
+                    onClick={deleteUser}
+
+                />
+            </div>
+
+        </>
+    )
 }
