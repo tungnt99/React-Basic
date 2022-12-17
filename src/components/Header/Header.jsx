@@ -7,7 +7,7 @@ import logo from '../../logo.svg';
 import './assets/header.scss'
 export default function Header() {
   return (
-    <Navbar className='navbar'>
+    <Navbar>
       <Container className='navbar-container'>
         <NavLink className="nav-link fw-bold navbar-brand" to="/">
           <img src={logo} className="App-logo" alt="logo" />
@@ -20,12 +20,14 @@ export default function Header() {
             <NavLink className="nav-link" activeclassname="active" to="/admin">Admin</NavLink>
           </Nav>
           <Nav>
-            <NavDropdown title="Setting" id="basic-nav-dropdown">
+            <button className='btn btn-light me-2'>Login</button>
+            <button className='btn btn-dark me-2'>Sign up</button>
+            {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
               <NavLink className='nav-link' to="#action/3.1">Login</NavLink>
               <NavLink className='nav-link' to="#action/3.2">Logout</NavLink>
               <NavLink className='nav-link' to="#action/3.3">Profile</NavLink>
 
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
