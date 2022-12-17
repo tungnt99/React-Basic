@@ -1,9 +1,11 @@
-.red{
+.red {
   color: red;
 }
-.green{
+
+.green {
   color: green;
 }
+
 body {
   /* padding: 20px; */
   margin: 0;
@@ -53,7 +55,21 @@ code {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.app-container {
+  .header-container {
+    .navbar-nav {
+      .nav-link {
+        &.active {
+          color: red;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
