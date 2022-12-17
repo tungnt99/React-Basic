@@ -1,0 +1,28 @@
+.homepage-container{
+    // position: relative;
+    video{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+       }
+    .homepage-content{
+       padding: 250px 100px 100px;
+       position: relative;
+       width: 50%;
+       display: flex;
+       flex-direction: column;
+       gap: 30px;
+       
+       .home-title{
+        font-size: 64px;
+       }
+       .home-desc{
+        font-size: 24px;
+       }
+       .home-btn{
+        font-size: 18px;
+       }
+    }
+}

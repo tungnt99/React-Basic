@@ -4,10 +4,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from "react-router-dom";
 import logo from '../../logo.svg';
+import './assets/header.scss'
 export default function Header() {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
+    <Navbar className='navbar'>
+      <Container className='navbar-container'>
         <NavLink className="nav-link fw-bold navbar-brand" to="/">
           <img src={logo} className="App-logo" alt="logo" />
         </NavLink>
