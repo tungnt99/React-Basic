@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DisplayInfo from './DisplayInfo'
 import AddUserInfo from './AddUserInfo'
 
@@ -7,12 +7,15 @@ export default function MyComponent(props) {
     const [name, setName] = useState('Thanh Tung');
     const [age, setAge] = useState('24');
     const [address, setAddress] = useState('Ha Noi');
+    const [title] = useState('Home');
     const [listUsers, setListUsers] = useState([
         { id: 1, name: "Thanh Tung", age: "14" },
         { id: 2, name: "Nguyen Thanh Tung", age: "15" },
         { id: 3, name: "Tung Biu", age: "19" },
     ]);
-
+    useEffect(() => {
+        document.title = title
+    }, [title])
     const handleClick = (event) => {
         setName('Nguyen Thanh Tung');
         setAge('25');
