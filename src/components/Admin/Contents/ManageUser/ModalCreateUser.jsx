@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
+import { toast } from 'react-toastify';
 
 export default function ModalCreateUser(props) {
     const { show, setShow } = props;
@@ -36,16 +37,27 @@ export default function ModalCreateUser(props) {
         // console.log("upload file", event.target.files[0]);
     }
 
+    // validate email
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
     // validate form
     const handleSubmitCreateUser = async () => {
-        // let data = {
-        //     email: email,
-        //     password: password,
-        //     userName: userName,
-        //     role: role,
-        //     userImage: image,
-        // }
-        // console.log("submit data", data);
+        const isValidateEmail = validateEmail(email);
+        if (!isValidateEmail) {
+            toast.error('please enter a valid email');
+            return;
+        }
+
+        // buộc người dùng phải nhập mật khẩu
+        if (!password) {
+            toast.error("Please enter a password");
+            return;
+        }
         const data = new FormData();
         data.append('email', email);
         data.append('password', password);
@@ -55,6 +67,13 @@ export default function ModalCreateUser(props) {
 
         let res = await axios.post('http://localhost:8081/api/v1/participant', data);
         console.log(res);
+        if (res.data && res.data.EC === 0) {
+            toast.success(res.data.EM)
+            handleClose();
+        }
+        if (res.data && res.data.EC !== 0) {
+            toast.error(res.data.EM);
+        }
     }
     return (
         <>
