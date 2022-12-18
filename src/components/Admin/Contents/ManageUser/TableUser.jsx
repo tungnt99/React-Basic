@@ -23,7 +23,7 @@ export default function TableUser(props) {
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <button className='mx-2 btn btn-info'>View</button>
+                                    <button className='mx-2 btn btn-info' onClick={() => props.handleModalViewUser(item)}>View</button>
                                     <button className='mx-2 btn btn-warning' onClick={() => props.handleModalUpdateUser(item)}>Edit</button>
                                     <button className='mx-2 btn btn-danger'>Delete</button>
 
