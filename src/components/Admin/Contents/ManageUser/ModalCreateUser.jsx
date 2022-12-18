@@ -65,9 +65,15 @@ export default function ModalCreateUser(props) {
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
+            // Cập nhật vào listUsers
+            await props.fetchListUsers();
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
+            // Cập nhật vào listUsers
+
+            await props.fetchListUsers();
+
         }
     }
     return (

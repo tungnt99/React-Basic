@@ -1,19 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { getAllUsers } from '../../../../services/apiServices';
 
 export default function TableUser(props) {
-    const [listUsers, setListUsers] = useState([]);
-
-    useEffect(() => {
-        fetchListUsers()
-    }, [])
-    const fetchListUsers = async() => {
-        let data = await getAllUsers();
-        if(data.EC === 0){
-            setListUsers(data.DT)
-        }
-    }
-    // console.log(listUsers);
+    const {listUsers} = props;
+  
     return (
         <>
             <table className="table table-bordered table-hover">
@@ -30,7 +18,7 @@ export default function TableUser(props) {
                     {listUsers && listUsers.length > 0 && listUsers.map((item, index) => {
                         return(
                             <tr key={index + 1}>
-                                <td>{index + 1}</td>
+                                <td>{item.id}</td>
                                 <td>{item.username}</td>
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
