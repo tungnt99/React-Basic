@@ -3,11 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
-import { postCresteNewUser } from '../../../../services/apiServices';
+import { putUpdateUser } from '../../../../services/apiServices';
 import _ from 'lodash';
 
 export default function ModalUpdateUser(props) {
-    const { show, setShow, dataUpdateUser } = props;
+    const { show, setShow, dataUpdateUser, resetUpdateData } = props;
     const handleClose = () => {
         setShow(false)
         setEmail("");
@@ -16,6 +16,7 @@ export default function ModalUpdateUser(props) {
         setRole("USER");
         setImage("");
         setPreviewImage("");
+        resetUpdateData()
     };
 
     // state
@@ -64,7 +65,7 @@ export default function ModalUpdateUser(props) {
             return;
         }
 
-        let data = await postCresteNewUser(email, userName, role, image);
+        let data = await putUpdateUser(dataUpdateUser.id , userName, role, image);
         console.log(data);
 
         if (data && data.EC === 0) {
@@ -92,7 +93,7 @@ export default function ModalUpdateUser(props) {
                     <form className="row">
                         <div className="col-md-6 mb-3">
                             <label className="form-label">Email</label>
-                            <input type="email" className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
+                            <input type="email" disabled className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Password</label>

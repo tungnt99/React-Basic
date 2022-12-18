@@ -28,7 +28,9 @@ export default function ManageUsers(props) {
     // console.log('update user', user);
     setDataUpdateUser(user);
   }
-
+  const resetUpdateData = () => {
+    setDataUpdateUser({})
+  }
   return (
     <div className="manage-user-container container">
       <div className="title">
@@ -55,6 +57,8 @@ export default function ManageUsers(props) {
             show={showModalUpdateUser}
             setShow={setShowModalUpdateUser}
             dataUpdateUser={dataUpdateUser}
+            fetchListUsers={fetchListUsers}
+            resetUpdateData={resetUpdateData}
           />
         </div>
       </div>
