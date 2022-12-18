@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ModalCreateUser from './ModalCreateUser'
 import './assets/manage.scss';
 import { FcPlus } from "react-icons/fc";
+import TableUser from './TableUser';
 
 export default function ManageUsers(props) {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
@@ -13,6 +14,9 @@ export default function ManageUsers(props) {
       <div className="manage-user-content">
         <div className='btn-add-user'>
           <button className='btn btn-success' onClick={() => setShowModalCreateUser(true)}><FcPlus /> Add new users</button>
+        </div>
+        <div className='table-user-container'>
+          <TableUser />
         </div>
         <div className='create-user-content'>
           <ModalCreateUser

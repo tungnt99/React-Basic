@@ -10,5 +10,7 @@ const postCresteNewUser = (email, password, userName, role, image) => {
 
     return axios.post("api/v1/participant", data);
 }
-
-export { postCresteNewUser }
+const getAllUsers = () => {
+    return axios.get('api/v1/participant/all');
+}
+export { postCresteNewUser, getAllUsers }
