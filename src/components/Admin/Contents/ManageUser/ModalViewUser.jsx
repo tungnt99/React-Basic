@@ -7,7 +7,6 @@ export default function ModalViewUser(props) {
     const { show, setShow, dataUpdateUser } = props;
     const handleClose = () => {
         setShow(false)
-        
     };
 
     // state
@@ -29,8 +28,6 @@ export default function ModalViewUser(props) {
     }, [dataUpdateUser])
     return (
         <>
-
-
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
                 <Modal.Header closeButton>
                     <Modal.Title>Modal Update User</Modal.Title>
