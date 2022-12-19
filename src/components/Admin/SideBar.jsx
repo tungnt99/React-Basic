@@ -9,7 +9,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FaGem, FaGithub } from 'react-icons/fa';
 import sidebarBg from './assets/bg2.jpg';
@@ -17,6 +17,10 @@ import { DiReact } from 'react-icons/di';
 import { MdDashboard } from 'react-icons/md';
 
 export default function SideBar(props) {
+    const navigate = useNavigate();
+    const handleBackHome = () => {
+        navigate('/')
+    }
     const { collapsed, toggled, handleToggleSidebar } = props;
 
     return (
@@ -41,6 +45,7 @@ export default function SideBar(props) {
                             whiteSpace: 'nowrap',
                             cursor: 'pointer',
                         }}
+                        onClick={() => handleBackHome()}
                     >
                         <DiReact size={'3em'} color={"#00bfff"} />
                         <span>Admin</span>

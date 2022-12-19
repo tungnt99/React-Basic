@@ -1,10 +1,43 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { postLogin } from '../../services/apiServices';
 import './assets/formlogin.scss'
 export default function Login(props) {
+    const navigate = useNavigate();
+    const handleBackHome = () => {
+        navigate('/')
+    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
-    const handleLogin = () => {
-        alert("login");
+
+    // validate email theo đúng định dạng
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+    const handleLogin = async() => {
+        const isValidEmail = validateEmail(email);
+        if(!isValidEmail){
+            toast.error('Please enter a valid email');
+            return;
+        }
+        if(!password){
+            toast.error('Please enter a password');
+            return;
+        }
+         
+        let dataLogin = await postLogin(email, password)
+        // console.log("check login", dataLogin);
+        if(dataLogin && dataLogin.EC === 0){
+            toast.success(dataLogin.EM);
+            navigate('/');
+        }else{
+            toast.error(dataLogin.EM);
+        }
     }
     return (
         <div className="login-container">
@@ -34,7 +67,9 @@ export default function Login(props) {
                     <div className="forgot-password">Forgot password?</div>
                     <div className="btn-login">
                         <button className="btn btn-dark" onClick={() => handleLogin()}>Log in to Typeform</button>
-
+                    </div>
+                    <div className="back mt-2">
+                        <span onClick={() => handleBackHome()} role="button">Go to back home</span>
                     </div>
                 </div>
 
