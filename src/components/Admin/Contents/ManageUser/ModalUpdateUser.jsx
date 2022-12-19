@@ -65,19 +65,23 @@ export default function ModalUpdateUser(props) {
             return;
         }
 
-        let data = await putUpdateUser(dataUpdateUser.id , userName, role, image);
+        let data = await putUpdateUser(dataUpdateUser.id, userName, role, image);
         console.log(data);
 
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
             // Cập nhật vào listUsers
-            await props.fetchListUsers();
+            props.setCurrentPage(1)
+            // await props.fetchListUsers();
+            await props.fetchListUserPaginate(props.currentPage);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
             // Cập nhật vào listUsers
-            await props.fetchListUsers();
+            props.setCurrentPage(1)
+            // await props.fetchListUsers();
+            await props.fetchListUserPaginate(props.currentPage);
         }
     }
     // console.log("check data update", dataUpdateUser);

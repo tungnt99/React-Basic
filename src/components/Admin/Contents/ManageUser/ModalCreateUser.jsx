@@ -58,7 +58,7 @@ export default function ModalCreateUser(props) {
             toast.error("Please enter a password");
             return;
         }
-        
+
         let data = await postCresteNewUser(email, password, userName, role, image);
         console.log(data);
 
@@ -66,14 +66,17 @@ export default function ModalCreateUser(props) {
             toast.success(data.EM);
             handleClose();
             // Cập nhật vào listUsers
-            await props.fetchListUsers();
+            props.setCurrentPage(1)
+            // await props.fetchListUsers();
+            await props.fetchListUserPaginate(1);
+
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
             // Cập nhật vào listUsers
-
-            await props.fetchListUsers();
-
+            props.setCurrentPage(1)
+            // await props.fetchListUsers();
+            await props.fetchListUserPaginate(1);
         }
     }
     return (

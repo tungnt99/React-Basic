@@ -5,10 +5,15 @@ import './assets/admin.scss'
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from 'react';
 
 export default function Admin(props) {
   const [collapsed, setCollapsed] = useState(false);
+  const [title] = useState('Admin');
 
+  useEffect(() => {
+    document.title = title;
+  }, [title])
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
