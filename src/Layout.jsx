@@ -9,6 +9,7 @@ import Admin from "./components/Admin/Admin";
 import Dashboard from './components/Admin/Contents/Dashboard/Dashboard';
 import ManageUsers from './components/Admin/Contents/ManageUser/ManageUsers';
 import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 export default function Layout() {
     return (
         <>
@@ -22,6 +23,8 @@ export default function Layout() {
                     <Route exact path="manage-user" element={<ManageUsers />} />
                 </Route>
                 <Route exact path='/login' element={<Login />} />
+                <Route exact path='/register' element={<Register />} />
+
             </Routes>
             <ToastContainer
                 position="top-right"

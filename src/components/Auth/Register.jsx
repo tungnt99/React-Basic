@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { postLogin } from '../../services/apiServices';
+import { postRegister } from '../../services/apiServices';
 import './assets/formlogin.scss'
-export default function Login(props) {
+export default function Register(props) {
     const navigate = useNavigate();
     const handleBackHome = () => {
         navigate('/')
     }
-    const handleBtnRegister = () => {
-        navigate('/register');
+    const handleBtnLogin = () => {
+        navigate('/login');
     }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
-
+    const [username, setUsername] = useState('');
     // validate email theo đúng định dạng
     const validateEmail = (email) => {
         return String(email)
@@ -22,7 +22,7 @@ export default function Login(props) {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleLogin = async() => {
+    const handleRegister = async() => {
         const isValidEmail = validateEmail(email);
         if(!isValidEmail){
             toast.error('Please enter a valid email');
@@ -33,13 +33,13 @@ export default function Login(props) {
             return;
         }
          
-        let dataLogin = await postLogin(email, password)
+        let data = await postRegister(email, password, username)
         // console.log("check login", dataLogin);
-        if(dataLogin && dataLogin.EC === 0){
-            toast.success(dataLogin.EM);
-            navigate('/');
+        if(data && data.EC === 0){
+            toast.success(data.EM);
+            navigate('/login');
         }else{
-            toast.error(dataLogin.EM);
+            toast.error(data.EM);
         }
     }
     return (
@@ -49,8 +49,8 @@ export default function Login(props) {
                     <span className="header-text-info">
                         Don't have an account yet?
                     </span>
-                    <button className="btn btn-outline-dark mx-2" onClick={() => handleBtnRegister()}>
-                        Sign up
+                    <button className="btn btn-outline-dark mx-2" onClick={() => handleBtnLogin()}>
+                        Login
                     </button>
                     <a href="https://www.typeform.com/signup/" >Need help?</a>
                 </div>
@@ -61,15 +61,19 @@ export default function Login(props) {
                 <div className="content-form ">
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type={"email"} value={email} className="form-control" placeholder="bruce@wayne.com" onChange={(event) => setEmail(event.target.value)} />
+                        <input type="email" value={email} className="form-control" placeholder="bruce@wayne.com" onChange={(event) => setEmail(event.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type={"password"} value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} />
+                        <input type="password" value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} />
+                    </div>
+                    <div className="form-group">
+                        <label>UserName: </label>
+                        <input type="text" value={username} className="form-control" placeholder="Thanh Tung" onChange={(event) => setUsername(event.target.value)} />
                     </div>
                     <div className="forgot-password">Forgot password?</div>
                     <div className="btn-login">
-                        <button className="btn btn-dark" onClick={() => handleLogin()}>Log in to Typeform</button>
+                        <button className="btn btn-dark" onClick={() => handleRegister()}>Create my free account</button>
                     </div>
                     <div className="back mt-2">
                         <span onClick={() => handleBackHome()} role="button">Go to back home</span>

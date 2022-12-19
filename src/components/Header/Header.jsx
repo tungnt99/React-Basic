@@ -10,6 +10,9 @@ export default function Header() {
   const handleClickLogin = () => {
     navigate('/login');
   }
+  const handleClickRegister = () => {
+    navigate('/register');
+  }
   return (
     <Navbar>
       <Container className='navbar-container'>
@@ -25,7 +28,7 @@ export default function Header() {
           </Nav>
           <Nav>
             <button className='btn btn-light me-2' onClick={() => handleClickLogin()}>Login</button>
-            <button className='btn btn-dark me-2'>Sign up</button>
+            <button className='btn btn-dark me-2' onClick={() => handleClickRegister()}>Sign up</button>
             {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
               <NavLink className='nav-link' to="/login">Login</NavLink>
               <NavLink className='nav-link' to="#action/3.2">Logout</NavLink>
