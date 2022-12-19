@@ -42,7 +42,7 @@ export default function TableUserPaginate(props) {
                             </tr>
                         )
                     })}
-                    {listUsers && listUsers.length === 0 && <tr><td colSpan={'5'}>Not found data</td></tr>}
+                    {listUsers && listUsers.length === 0 && <tr><td colSpan={'5'} className="text-center    ">Not found data</td></tr>}
 
                 </tbody>
             </table>
