@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { postRegister } from '../../services/apiServices';
 import './assets/formlogin.scss'
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 export default function Register(props) {
     const navigate = useNavigate();
     const handleBackHome = () => {
@@ -14,6 +15,7 @@ export default function Register(props) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [isShowPassword, setIsShowPassword] = useState(false);
     // validate email theo đúng định dạng
     const validateEmail = (email) => {
         return String(email)
@@ -22,23 +24,23 @@ export default function Register(props) {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleRegister = async() => {
+    const handleRegister = async () => {
         const isValidEmail = validateEmail(email);
-        if(!isValidEmail){
+        if (!isValidEmail) {
             toast.error('Please enter a valid email');
             return;
         }
-        if(!password){
+        if (!password) {
             toast.error('Please enter a password');
             return;
         }
-         
+
         let data = await postRegister(email, password, username)
         // console.log("check login", dataLogin);
-        if(data && data.EC === 0){
+        if (data && data.EC === 0) {
             toast.success(data.EM);
             navigate('/login');
-        }else{
+        } else {
             toast.error(data.EM);
         }
     }
@@ -63,9 +65,27 @@ export default function Register(props) {
                         <label>Email: </label>
                         <input type="email" value={email} className="form-control" placeholder="bruce@wayne.com" onChange={(event) => setEmail(event.target.value)} />
                     </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} />
+                    <div className='form-password'>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input type={isShowPassword ? "text" : "password"} value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} />
+                        </div>
+                        {isShowPassword ? (
+                            <span
+                                className="icons-eye"
+                                onClick={() => setIsShowPassword(false)}
+                            >
+                                <VscEyeClosed />
+                            </span>
+                        ) : (
+                            <span
+                                className="icons-eye"
+                                onClick={() => setIsShowPassword(true)}
+                            >
+                                <VscEye />
+                            </span>
+                        )}
+
                     </div>
                     <div className="form-group">
                         <label>UserName: </label>

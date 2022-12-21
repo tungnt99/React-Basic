@@ -41,6 +41,16 @@
                     width: 100%;
                 }
             }
+            // register
+            .form-password{
+                position: relative;
+
+                .icons-eye{
+                    position: absolute;
+                    right: 10px;
+                    bottom: 8px;
+                }
+            }
         }
 
     }
