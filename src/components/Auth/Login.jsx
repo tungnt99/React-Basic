@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { doLogin } from '../../redux/action/useAction';
 import { postLogin } from '../../services/apiServices';
 import './assets/formlogin.scss'
+
 export default function Login(props) {
+    // login redux
+    const dispatch = useDispatch();
+    // end login redux
     const navigate = useNavigate();
     const handleBackHome = () => {
         navigate('/')
@@ -36,6 +42,7 @@ export default function Login(props) {
         let dataLogin = await postLogin(email, password)
         // console.log("check login", dataLogin);
         if(dataLogin && dataLogin.EC === 0){
+            dispatch(doLogin(dataLogin))
             toast.success(dataLogin.EM);
             navigate('/');
         }else{

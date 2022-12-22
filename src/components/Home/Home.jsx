@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import videoHomepage from '../../media/video-homepage.mp4';
 import './assets/home.scss';
+import { useSelector } from 'react-redux';
+
 export default function Home() {
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+  const account = useSelector(state => state.user.account)
+  console.log('account', account)
+  console.log('isAuthenticated', isAuthenticated)
+  
   const [title] = useState("Home");
   useEffect(() => {
     document.title = title
