@@ -5,11 +5,15 @@ import { toast } from 'react-toastify';
 import { doLogin } from '../../redux/action/useAction';
 import { postLogin } from '../../services/apiServices';
 import './assets/formlogin.scss'
+import { ImSpinner } from "react-icons/im";
 
 export default function Login(props) {
     // login redux
     const dispatch = useDispatch();
     // end login redux
+    // Loading
+    const [loading, setLoading] = useState(false);
+    // End loading
     const navigate = useNavigate();
     const handleBackHome = () => {
         navigate('/')
@@ -28,25 +32,29 @@ export default function Login(props) {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         const isValidEmail = validateEmail(email);
-        if(!isValidEmail){
+        if (!isValidEmail) {
             toast.error('Please enter a valid email');
             return;
         }
-        if(!password){
+        if (!password) {
             toast.error('Please enter a password');
             return;
         }
-         
+        // set loading
+        setLoading(true);
+        // submit api
         let dataLogin = await postLogin(email, password)
         // console.log("check login", dataLogin);
-        if(dataLogin && dataLogin.EC === 0){
+        if (dataLogin && dataLogin.EC === 0) {
             dispatch(doLogin(dataLogin))
             toast.success(dataLogin.EM);
+            setLoading(false);
             navigate('/');
-        }else{
+        } else {
             toast.error(dataLogin.EM);
+            setLoading(false);
         }
     }
     return (
@@ -76,7 +84,12 @@ export default function Login(props) {
                     </div>
                     <div className="forgot-password">Forgot password?</div>
                     <div className="btn-login">
-                        <button className="btn btn-dark" onClick={() => handleLogin()}>Log in to Typeform</button>
+                        <button className="btn btn-dark" onClick={() => handleLogin()} disabled={loading}>
+                            {loading === true &&
+                                <ImSpinner className="mx-2 loading-icons" />
+                            }
+                            <span>Log in to Typeform</span>
+                        </button>
                     </div>
                     <div className="back mt-2">
                         <span onClick={() => handleBackHome()} role="button">Go to back home</span>
