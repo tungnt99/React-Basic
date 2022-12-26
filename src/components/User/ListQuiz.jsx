@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { getQuizByUser } from '../../services/apiServices';
 
 export default function ListQuiz(props) {
     const [listQuiz, setListQuiz] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         getQuizData();
     }, [])
@@ -27,7 +28,7 @@ export default function ListQuiz(props) {
                                 <div className="card-body">
                                     <h5 className="card-title">Quiz {index + 1}</h5>
                                     <p className="card-text">{item.description}</p>
-                                    <button className="btn btn-primary">Start Now</button>
+                                    <button className="btn btn-primary" onClick={() => navigate(`/user/quiz/${item.id}`)}>Start Now</button>
                                 </div>
                             </div>
 

@@ -10,6 +10,14 @@ import Dashboard from './components/Admin/Contents/Dashboard/Dashboard';
 import ManageUsers from './components/Admin/Contents/ManageUser/ManageUsers';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import DetailQuiz from './components/User/DetailQuiz';
+const NotFound = () => {
+    return(
+      <div className="container mt-3 alert alert-danger">
+        404.Not found data with your current URL
+      </div>
+    )
+  }
 export default function Layout() {
     return (
         <>
@@ -17,6 +25,7 @@ export default function Layout() {
                 <Route exact path="/" element={<App />}>
                     <Route index element={<Home />} />
                     <Route exact path="/user" element={<User />} />
+                    <Route exact path="/user/quiz/:id" element={<DetailQuiz />} />
                 </Route>
                 <Route exact path="/admin" element={<Admin />}>
                     <Route index element={<Dashboard />} />
@@ -24,7 +33,7 @@ export default function Layout() {
                 </Route>
                 <Route exact path='/login' element={<Login />} />
                 <Route exact path='/register' element={<Register />} />
-
+                <Route exact path="*" element={<NotFound />} />
             </Routes>
             <ToastContainer
                 position="top-right"
