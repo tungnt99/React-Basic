@@ -13,8 +13,8 @@ export default function Header() {
   // Login Redux
   const isAuthenticated = useSelector(state => state.user.isAuthenticated)
   const account = useSelector(state => state.user.account)
-  console.log('account', account.email)
-  console.log('isAuthenticated', isAuthenticated)
+  // console.log('account', account.email)
+  // console.log('isAuthenticated', isAuthenticated)
 
   useEffect(() => {
     if (account.image) {
@@ -60,7 +60,7 @@ export default function Header() {
                 }}
                   id="basic-nav-dropdown"
                   className='nav-dropdown'>
-                  <NavLink className='nav-link' to="#action/3.2">Logout</NavLink>
+                  <NavLink className='nav-link' to="/login">Logout</NavLink>
                   <NavLink className='nav-link' to="#action/3.3">Profile</NavLink>
                 </NavDropdown>
               </>
