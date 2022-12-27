@@ -1,10 +1,14 @@
 .list-quiz-content{
     .cart-list{
+        justify-content: space-between;
         .card-item{
             border-radius: 3px;
-            margin: 10px 15px;
+            margin-bottom: 20px;
+            margin-top: 5px;
             .card-img-top{
                 height: 280px;
+                border-radius: 3px;
+
             }
             .card-body{
                 margin-top: 15px;
