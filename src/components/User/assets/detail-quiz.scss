@@ -1,0 +1,15 @@
+.detail-quiz-container{
+    padding: 50px 0;
+    .left-content{
+        padding: 10px;
+        border: 1px solid #dddddd;
+        .question-container{
+            .title{
+                line-height: 60px;
+            }
+        }
+    }
+    .right-content{
+        border: 1px solid #dddddd;
+    }
+}
