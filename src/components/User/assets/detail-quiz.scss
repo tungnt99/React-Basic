@@ -1,15 +1,41 @@
-.detail-quiz-container{
+.detail-quiz-container {
     padding: 50px 0;
-    .left-content{
+
+    .left-content {
         padding: 10px;
         border: 1px solid #dddddd;
-        .question-container{
-            .title{
+
+        .question-container {
+            .title {
                 line-height: 60px;
             }
         }
+
+        .question-content {
+            .question-image {
+                width: 50%;
+                height: 215px;
+                margin: 0 auto;
+                img {
+                    width: 100%;
+                    height: auto;
+                   
+                }
+
+                ;
+            }
+            .not-found{
+                border: 1px dotted #000;
+                border-radius: 5px;
+                font-size: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
-    .right-content{
+
+    .right-content {
         border: 1px solid #dddddd;
     }
 }
