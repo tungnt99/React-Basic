@@ -1,14 +1,29 @@
 .quiz-container {
     padding: 20px;
+
     .quiz-title {
         font-size: 30px;
         font-weight: 600;
         margin-bottom: 15px;
     }
+
     .add-new {
         fieldset {
             legend {
                 font-size: 14px;
+            }
+
+            .img-preview {
+                height: 150px;
+                border: 1px dashed #ccc;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ccc;
+                img{
+                    max-height: 100%;
+                }
             }
         }
     }
