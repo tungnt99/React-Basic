@@ -7,17 +7,19 @@ import Question from './Question';
 
 export default function DetailQuiz(props) {
     const [title] = useState('Test Quiz User');
-    const location = useLocation();
+    const location = useLocation(); //lấy state được trả ra từ "state: { quizTitle: item.description }"
     // console.log('location: ', location);
     const params = useParams();
     // console.log('params: ', params);
-    const quizId = params.id;
+    const quizId = params.id; //nhận id của bài test từ list-quiz
     // console.log('check quizID: ', quizId);
 
     const [dataQuiz, setDataQuiz] = useState([]);
     // đặt biến để biết người dùng ở câu hỏi bao nhiêu sẽ trả về giá trị đó -> tương tự phân trang
     const [index, setIndex] = useState(0);
     // console.log('index', index);
+
+
     useEffect(() => {
         document.title = title;
         fetchDataQuestion();
@@ -29,34 +31,34 @@ export default function DetailQuiz(props) {
         let res = await getDataQuestions(quizId);
         // console.log('res: ', res);
         if (res && res.EC === 0) {
-            let raw = res.DT
+            let raw = res.DT //DT sẽ trả ra tất cả các phần tử trong đó chứa các object có id trùng nhau
             // console.log('raw: ', raw);
             // nhóm các mảng chung id lại với nhau
-            let data = _.chain(raw)
+            let data = _.chain(raw) //nhóm chung object trong biến {raw} có id trùng nhau
                 // Group the elements of Array based on `color` property
                 .groupBy("id")
                 // `key` is group's name (color), `value` is the array of objects
-                .map((value, key) => {
+                .map((value, key) => { //map ra từng thành phần trùng id trong biến raw gộp lại thành 1 object -> trả về {id: 1, id: 1, id:1, ...}
                     // console.log('value', value, 'key', key);
-                    let answers = [];
+                    let answers = []; // tạo 1 array rỗng chứa câu trả lời trùng id trong value-> được truyền vào giá trị id mới
                     let questionDescription, image = null;
                     // answers.questionId = key;
-                    value.forEach((item, index) => {
+                    value.forEach((item, index) => { //lấy ra từng đối tượng các câu trả lời trong biến value ở trên -> trả về 1 object {id: 1}, {id: 1}, {id: 1}...
                         if (index === 0) {
-                            questionDescription = item.description;
+                            questionDescription = item.description; //description là các tên câu hỏi được trả về
                             image = item.image;
                         }
                         // console.log('item: ', item);
                         // console.log('items answer', item.answers);
                         item.answers.isSelected = false; // Mặc định đặt câu trả lời là false
-                        answers.push(item.answers);
+                        answers.push(item.answers); //push các đáp án vào mảng answers //item.answers -> các đáp án 
                     })
 
-                    return { questionId: key, answers, questionDescription, image }
+                    return { questionId: key, answers, questionDescription, image } // key: id của câu hỏi, answers: các câu trả lời được trả về, questionDescription: tên câu hỏi, image: hình ảnh câu hỏi
                 })
                 .value();
             // console.log("data: ", data);
-            setDataQuiz(data);
+            setDataQuiz(data); // cuối dùng data trả về từng câu hỏi cùng các đáp án riêng biệt và set vào dataQuiz
 
         }
     }
@@ -84,14 +86,57 @@ export default function DetailQuiz(props) {
                 return item;
             })
             question.answers = b;
-            console.log("b", b);
+            // console.log("b", b);
         }
-        console.log('question: ', question);
+        // console.log('question: ', question);
 
         let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
         if (index > -1) {
             dataQuizClone[index] = question;
             setDataQuiz(dataQuizClone);
+        }
+    }
+
+    // submit đáp án
+    const handleFinishQuiz = () => {
+        console.log('submit', dataQuiz);
+        // {
+        //     "quizId": 1,
+        //     "answers": [
+        //         { 
+        //             "questionId": 1,
+        //             "userAnswerId": [3]
+        //         },
+        //         { 
+        //             "questionId": 2,
+        //             "userAnswerId": [6]
+        //         }
+        //     ]
+        // }
+        let payload = {
+            quizId: +quizId,
+            answers: [],
+        }
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+                // console.log('question: ', question)
+                let questionId = +question.questionId
+                let userAnswerId = [];
+                // todo xử lý user answer 
+                question.answers.forEach(a => {
+                    if (a.isSelected === true) {
+                        userAnswerId.push(a.id);
+                    }
+                })
+                // console.log('questionId: ', questionId)
+                answers.push({
+                    questionId: questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+            payload.answers = answers;
+            console.log('payload: ', payload)
         }
     }
     return (
@@ -111,7 +156,7 @@ export default function DetailQuiz(props) {
                     <div className="question-prev-next" style={{ margin: '0 auto', display: 'table' }}>
                         <button className="btn btn-danger mx-2" onClick={() => handlePrev()}>Prev</button>
                         <button className="btn btn-success mx-2" onClick={() => handleNext()}>Next</button>
-
+                        <button className="btn btn-warning mx-2" onClick={() => handleFinishQuiz()}>Finish</button>
                     </div>
                 </div>
                 <div className="right-content col-md-4">count down</div>
