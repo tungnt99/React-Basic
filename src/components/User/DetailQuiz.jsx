@@ -48,6 +48,7 @@ export default function DetailQuiz(props) {
                         }
                         // console.log('item: ', item);
                         // console.log('items answer', item.answers);
+                        item.answers.isSelected = false; // Mặc định đặt câu trả lời là false
                         answers.push(item.answers);
                     })
 
@@ -68,6 +69,31 @@ export default function DetailQuiz(props) {
         if (dataQuiz && dataQuiz.length > index + 1)
             setIndex(index + 1);
     }
+
+    const handleCheckBox = (answerId, questionId) => {
+        // console.log(answerId, questionId);
+        let dataQuizClone = _.cloneDeep(dataQuiz); //clone dataQuiz
+        let question = dataQuizClone.find((item) => +item.questionId === +questionId)
+        if (question && question.answers) {
+            // console.log('question: ', question);
+
+            let b = question.answers.map((item) => {
+                if (+item.id === +answerId) {
+                    item.isSelected = !item.isSelected;
+                }
+                return item;
+            })
+            question.answers = b;
+            console.log("b", b);
+        }
+        console.log('question: ', question);
+
+        let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
+        if (index > -1) {
+            dataQuizClone[index] = question;
+            setDataQuiz(dataQuizClone);
+        }
+    }
     return (
         <div className="detail-quiz-container container">
             <div className="d-flex justify-content-evenly">
@@ -78,6 +104,7 @@ export default function DetailQuiz(props) {
                             <Question
                                 data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
                                 index={index}
+                                handleCheckBox={handleCheckBox}
                             />
                         </div>
                     </div>

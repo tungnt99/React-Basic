@@ -1,11 +1,18 @@
 import React from 'react'
 import _ from 'lodash';
 export default function Question(props) {
-    const { data, index } = props;
-    console.log('data: ', data, 'index: ', index);
+    const { data, index, handleCheckBox } = props;
+    // console.log('data: ', data, 'index: ', index);
     if (_.isEmpty(data)) {
         return <></>;
     } // nếu data rỗng ko truyền gì xuống bên dưới
+
+    const handleHanleCheckbox = (event, aId, qId) => {
+        // console.log(aId, +qId);
+        // console.log('event: ', event.target.checked);
+        handleCheckBox(aId, +qId);
+        // console.log('data: ', data);
+    }
     return (
         <>
             <h3 className="question-title">Question {index + 1}: {data.questionDescription} ?</h3>
@@ -26,8 +33,10 @@ export default function Question(props) {
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    value=""
                                     role="button"
+                                    checked={answer.isSelected}
+                                    value={answer.description}
+                                    onChange={(event) => handleHanleCheckbox(event, answer.id, data.questionId)}
                                 />
                                 <label
                                     className="form-check-label"

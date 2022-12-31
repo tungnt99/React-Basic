@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.user.isAuthenticated)
-  const account = useSelector(state => state.user.account)
-  console.log('account', account)
-  console.log('isAuthenticated', isAuthenticated)
+  // const account = useSelector(state => state.user.account)
+  // console.log('account', account)
+  // console.log('isAuthenticated', isAuthenticated)
 
   const [title] = useState("Home");
   useEffect(() => {
