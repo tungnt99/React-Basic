@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import { getDataQuestions } from '../../services/apiServices';
+import { getDataQuestions, postSubmitQuiz } from '../../services/apiServices';
 import _ from 'lodash';
 import './assets/detail-quiz.scss'
 import Question from './Question';
+import ModalResult from './ModalResult';
 
 export default function DetailQuiz(props) {
     const [title] = useState('Test Quiz User');
@@ -19,7 +20,8 @@ export default function DetailQuiz(props) {
     const [index, setIndex] = useState(0);
     // console.log('index', index);
 
-
+    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [dataModalResult, setDataModalResult] = useState({});
     useEffect(() => {
         document.title = title;
         fetchDataQuestion();
@@ -98,8 +100,8 @@ export default function DetailQuiz(props) {
     }
 
     // submit đáp án
-    const handleFinishQuiz = () => {
-        console.log('submit', dataQuiz);
+    const handleFinishQuiz = async() => {
+        // console.log('submit', dataQuiz);
         // {
         //     "quizId": 1,
         //     "answers": [
@@ -136,7 +138,21 @@ export default function DetailQuiz(props) {
                 })
             })
             payload.answers = answers;
-            console.log('payload: ', payload)
+            // console.log('payload: ', payload)
+            // submit api
+
+            let res = await postSubmitQuiz(payload);
+            console.log('submit res: ', res);
+            if(res && res.EC === 0){
+                setDataModalResult({
+                    countCorrect: res.DT.countCorrect,
+                    countTotal: res.DT.countTotal,
+                    quizData: res.DT.quizData
+                })
+                setIsShowModalResult(true);
+            }else{
+                alert('An error occurred');
+            }
         }
     }
     return (
@@ -161,6 +177,11 @@ export default function DetailQuiz(props) {
                 </div>
                 <div className="right-content col-md-4">count down</div>
             </div>
+            <ModalResult 
+                show={isShowModalResult}
+                setShow={setIsShowModalResult}
+                dataModalResult={dataModalResult}
+            />
         </div>
     )
 }
