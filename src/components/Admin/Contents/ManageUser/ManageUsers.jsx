@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import ModalCreateUser from './ModalCreateUser'
 import './assets/manage.scss';
 import { FcPlus } from "react-icons/fc";
-import TableUser from './TableUser';
-import { getAllUsers, getAllUsersPaginate } from '../../../../services/apiServices';
+// import TableUser from './TableUser';
+import { getAllUsersPaginate } from '../../../../services/apiServices';
 import ModalUpdateUser from './ModalUpdateUser';
 import ModalViewUser from './ModalViewUser';
 import ModalDeleteUser from './ModalDeleteUser';
@@ -28,15 +28,15 @@ export default function ManageUsers(props) {
     // fetchListUsers()
     fetchListUserPaginate(1)
   }, [])
-  const fetchListUsers = async () => {
-    let data = await getAllUsers();
-    if (data.EC === 0) {
-      setListUsers(data.DT)
-    }
-  }
+  // const fetchListUsers = async () => {
+  //   let data = await getAllUsers();
+  //   if (data.EC === 0) {
+  //     setListUsers(data.DT)
+  //   }
+  // }
   const fetchListUserPaginate = async(page) => {
     let data = await getAllUsersPaginate(page, LIMIT_USER)
-    console.log("check data pagenate", data);
+    // console.log("check data pagenate", data);
     if (data.EC === 0) {
       setListUsers(data.DT.users)
       setPageCount(data.DT.totalPages)

@@ -142,7 +142,7 @@ export default function DetailQuiz(props) {
             // submit api
 
             let res = await postSubmitQuiz(payload);
-            console.log('submit res: ', res);
+            // console.log('submit res: ', res);
             if(res && res.EC === 0){
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,

@@ -1,0 +1,15 @@
+.quiz-container {
+    padding: 20px;
+    .quiz-title {
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .add-new {
+        fieldset {
+            legend {
+                font-size: 14px;
+            }
+        }
+    }
+}

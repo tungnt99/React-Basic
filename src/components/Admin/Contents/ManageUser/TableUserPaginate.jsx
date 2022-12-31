@@ -8,9 +8,9 @@ export default function TableUserPaginate(props) {
     const handlePageClick = (event) => {
         fetchListUserPaginate(+event.selected + 1);
         props.setCurrentPage(+event.selected + 1)
-        console.log(
-            `User requested page number ${event.selected + 1}`
-        );
+        // console.log(
+        //     `User requested page number ${event.selected + 1}`
+        // );
     };
     return (
         <>
