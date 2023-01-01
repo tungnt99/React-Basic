@@ -71,7 +71,9 @@ export default function SideBar(props) {
                             <MenuItem>Quản lý bài Quiz
                                 <Link to="/admin/manage-quiz" />
                             </MenuItem>
-                            <MenuItem>Quản lý câu hỏi</MenuItem>
+                            <MenuItem>Quản lý câu hỏi
+                                <Link to="/admin/manage-question" />
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

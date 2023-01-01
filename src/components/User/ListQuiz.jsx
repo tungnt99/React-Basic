@@ -23,12 +23,15 @@ export default function ListQuiz(props) {
                 <div className='row cart-list'>
                     {listQuiz && listQuiz.length > 0 && listQuiz.map((item, index) => {
                         return (
-                            <div className="card-item border border-secondary" key={index} style={{ width: "20rem" }}>
-                                <img src={`data:image/png;base64, ${item.image}`} className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Quiz {index + 1}</h5>
-                                    <p className="card-text">{item.description}</p>
-                                    <button className="btn btn-primary" onClick={() => navigate(`/user/quiz/${item.id}`, { state: { quizTitle: item.description } })}>Start Now</button>
+                            <div className="card-item" key={index} style={{ width: "20rem" }}>
+                                <div className='border border-secondary'>
+                                    <img src={`data:image/png;base64, ${item.image}`} className="card-img-top" alt="..." />
+                                    <div className="card-body">
+                                        <h5 className="card-title">Quiz {index + 1}</h5>
+                                        <p className="card-text">{item.description}</p>
+                                        <button className="btn btn-primary" onClick={() => navigate(`/user/quiz/${item.id}`, { state: { quizTitle: item.description } })}>Start Now</button>
+                                    </div>
+
                                 </div>
                             </div>
 

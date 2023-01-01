@@ -29,7 +29,7 @@ export default function ManageQuiz(props) {
         fetchAllDataQuiz();
     }, [])
 
-    const fetchAllDataQuiz = async () => {
+    const fetchAllDataQuiz = async() => {
         let res = await getAllDataQuizForAdmin()
         if (res.EC === 0) {
             setListQuiz(res.DT);
@@ -49,13 +49,13 @@ export default function ManageQuiz(props) {
             return;
         }
         let data = await postCreateNewQuiz(name, description, difficulty, image)
-        console.log('data: ', data);
+        // console.log('data: ', data);
         if (data && data.EC === 0) {
             toast.success(data.EM)
             setName('')
             setDescription('')
             setDifficulty('EASY')
-            setImage('')
+            setImage("")
             setPreviewImage(null);
             fetchAllDataQuiz();
         } else {
