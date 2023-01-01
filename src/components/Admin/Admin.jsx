@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SideBar from './SideBar'
 import { FaBars } from 'react-icons/fa';
 import './assets/admin.scss'
 import { Outlet } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from 'react';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+
 
 export default function Admin(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,10 +24,12 @@ export default function Admin(props) {
           <FaBars onClick={() => setCollapsed(!collapsed)} />
         </div>
         <div className='admin-main'>
-          <Outlet />
+          <PerfectScrollbar>
+            <Outlet />
+          </PerfectScrollbar>
         </div>
       </div>
-     
+
     </div>
   )
 }
