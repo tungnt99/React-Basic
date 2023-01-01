@@ -30,7 +30,7 @@ export default function ModalViewUser(props) {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal Update User</Modal.Title>
+                    <Modal.Title>Modal View User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row">
@@ -50,12 +50,12 @@ export default function ModalViewUser(props) {
                         </div>
                         <div className="col-md-6 mb-3">
                             <label className="form-label">Username</label>
-                            <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} />
+                            <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} disabled/>
                         </div>
 
                         <div className="col-md-6 mb-3">
                             <label className="form-label">Role</label>
-                            <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
+                            <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)} disabled>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>

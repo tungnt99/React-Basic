@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { getAllDataQuizForAdmin } from '../../../../services/apiServices';
+import React from 'react'
 
 export default function TableQuiz(props) {
-    const [listQuiz, setListQuiz] = useState([]);
-
-    useEffect(() => {
-        fetchQuiz();
-    }, [])
-
-    const fetchQuiz = async() => {
-        let res = await getAllDataQuizForAdmin()
-        // console.log(res);
-        if(res.EC === 0) {
-            setListQuiz(res.DT);
-        }
-    }
-    console.log(listQuiz)
+ const {listQuiz} = props;
     return (
         <div className='container'>
             <table className="table table-bordered">
@@ -37,10 +23,9 @@ export default function TableQuiz(props) {
                             <td>{item.description}</td>
                             <td>{item.difficulty}</td>
                             <td>
-                                <button className='btn btn-info'>View</button>
-                                <button className='btn btn-warning mx-2'>Edit</button>
-                                <button className='btn btn-dark'>Delete</button>
-
+                                <button className='btn btn-info' onClick={() => props.handleModalViewQuiz(item)}>View</button>
+                                <button className='btn btn-warning mx-2' onClick={() => props.handleModalUpdateQuiz(item)}>Edit</button>
+                                <button className='btn btn-dark' onClick={() => props.handleModalDeleteQuiz(item)}>Delete</button>
                             </td>
                         </tr>
                     )

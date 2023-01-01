@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style/manage-quiz.scss';
-import Select from 'react-select';
+
 import { toast } from "react-toastify";
-import { postCreateNewQuiz } from '../../../../services/apiServices';
+import { getAllDataQuizForAdmin, postCreateNewQuiz } from '../../../../services/apiServices';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
-const options = [
-    { value: 'EASY', label: 'EASY' },
-    { value: 'MEDIUM', label: 'MEDIUM' },
-    { value: 'HARD', label: 'HARD' },
-];
+import ModalDeleteQuiz from './ModalDeleteQuiz';
+import ModalUpdateQuiz from './ModalUpdateQuiz';
+import ModalViewQuiz from './ModalViewQuiz';
 
 
 export default function ManageQuiz(props) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [type, setType] = useState('EASY');
+    const [difficulty, setDifficulty] = useState("EASY");
     const [image, setImage] = useState("");
     const [previewImage, setPreviewImage] = useState("");
+
+    const [listQuiz, setListQuiz] = useState([]);
+    const [dataUpdateQuiz, setDataUpdateQuiz] = useState({});
+    const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false);
+    const [dataViewQuiz, setDataViewQuiz] = useState({});
+    const [showModalViewQuiz, setShowModalViewQuiz] = useState(false);
+    const [dataDeleteQuiz, setDataDeleteQuiz] = useState({});
+    const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
+
+    useEffect(() => {
+        fetchAllDataQuiz();
+    }, [])
+
+    const fetchAllDataQuiz = async () => {
+        let res = await getAllDataQuizForAdmin()
+        if (res.EC === 0) {
+            setListQuiz(res.DT);
+        }
+    }
 
     const handleChangeFile = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -31,17 +48,32 @@ export default function ManageQuiz(props) {
             toast.error('Please enter a name or description for quiz');
             return;
         }
-        let data = await postCreateNewQuiz(name, description, type?.value, image)
-        // console.log(data);
+        let data = await postCreateNewQuiz(name, description, difficulty, image)
+        console.log('data: ', data);
         if (data && data.EC === 0) {
             toast.success(data.EM)
             setName('')
             setDescription('')
-            setType('')
+            setDifficulty('EASY')
             setImage('')
+            setPreviewImage(null);
+            fetchAllDataQuiz();
         } else {
             toast.error(data.EM)
         }
+    }
+
+    const handleModalDeleteQuiz = (quiz) => {
+        setShowModalDeleteQuiz(true);
+        setDataDeleteQuiz(quiz);
+    }
+    const handleModalUpdateQuiz = (quiz) => {
+        setShowModalUpdateQuiz(true);
+        setDataUpdateQuiz(quiz);
+    }
+    const handleModalViewQuiz = (quiz) => {
+        setShowModalViewQuiz(true);
+        setDataViewQuiz(quiz);
     }
     return (
         <div className='quiz-container'>
@@ -61,12 +93,13 @@ export default function ManageQuiz(props) {
                                     <label >Description</label>
                                 </div>
                                 <div className=' mb-3'>
-                                    <Select
-                                        defaultValue={type}
-                                        onChange={setType}
-                                        options={options}
-                                        placeholder={"Quiz style"}
-                                    />
+                                    <label className="form-label">Type</label>
+                                    <select className="form-select" value={difficulty} onChange={(event) => setDifficulty(event.target.value)}>
+                                        <option value="EASY">EASY</option>
+                                        <option value="MEDIUM">MEDIUM</option>
+                                        <option value="HARD">HARD</option>
+                                    </select>
+                                  
                                 </div>
                                 <div className='more-actions mb-3'>
                                     <label>Upload Image</label>
@@ -90,7 +123,29 @@ export default function ManageQuiz(props) {
                     <Accordion.Header>Table Quizs</Accordion.Header>
                     <Accordion.Body>
                         <div className='list-quiz'>
-                            <TableQuiz />
+                            <TableQuiz
+                                listQuiz={listQuiz}
+                                handleModalDeleteQuiz={handleModalDeleteQuiz}
+                                handleModalUpdateQuiz={handleModalUpdateQuiz}
+                                handleModalViewQuiz={handleModalViewQuiz}
+                            />
+                            <ModalDeleteQuiz
+                                show={showModalDeleteQuiz}
+                                setShow={setShowModalDeleteQuiz}
+                                dataDeleteQuiz={dataDeleteQuiz}
+                                fetchAllDataQuiz={fetchAllDataQuiz}
+                            />
+                            <ModalUpdateQuiz
+                                show={showModalUpdateQuiz}
+                                setShow={setShowModalUpdateQuiz}
+                                dataUpdateQuiz={dataUpdateQuiz}
+                                fetchAllDataQuiz={fetchAllDataQuiz}
+                            />
+                            <ModalViewQuiz
+                                show={showModalViewQuiz}
+                                setShow={setShowModalViewQuiz}
+                                dataViewQuiz={dataViewQuiz}
+                            />
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
