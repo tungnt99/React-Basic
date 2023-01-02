@@ -5,8 +5,16 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
 import { putUpdateUser } from '../../../../services/apiServices';
 import _ from 'lodash';
+import Lightbox from "react-awesome-lightbox";
 
 export default function ModalUpdateUser(props) {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const { show, setShow, dataUpdateUser, resetUpdateData } = props;
     const handleClose = () => {
         setShow(false)
@@ -85,6 +93,13 @@ export default function ModalUpdateUser(props) {
         }
     }
     // console.log("check data update", dataUpdateUser);
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
+    }
     return (
         <>
 
@@ -127,7 +142,7 @@ export default function ModalUpdateUser(props) {
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
-                                <img src={previewImage} alt={image} />
+                                <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                 :
                                 <span>Preview Image</span>
 
@@ -144,6 +159,10 @@ export default function ModalUpdateUser(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </>
     );
 }

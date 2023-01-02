@@ -4,8 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
 import { putUpdateDataQuiz } from '../../../../services/apiServices';
+import Lightbox from "react-awesome-lightbox";
 
 export default function ModalUpdateQuiz(props) {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const { show, setShow, dataUpdateQuiz } = props;
 
     const handleClose = () => {
@@ -53,6 +61,14 @@ export default function ModalUpdateQuiz(props) {
             await props.fetchAllDataQuiz();
         }
     }
+
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
+    }
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
@@ -84,7 +100,7 @@ export default function ModalUpdateQuiz(props) {
                             </div>
                             <div className='col-md-12 img-preview'>
                                 {previewImage ?
-                                    <img src={previewImage} alt={image} />
+                                    <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
                                     :
                                     <span>Preview Image</span>
                                 }
@@ -100,6 +116,9 @@ export default function ModalUpdateQuiz(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </>
     )
 }

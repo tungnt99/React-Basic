@@ -4,8 +4,16 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
 import { postCresteNewUser } from '../../../../services/apiServices';
+import Lightbox from "react-awesome-lightbox";
 
 export default function ModalCreateUser(props) {
+      // react lightbox
+      const [isPreviewImage, setIsPreviewImage] = useState(false);
+      const [dataImagePreview, setDataImagePreview] = useState({
+          title: '',
+          url: '',
+      });
+      // end react lightbox
     const { show, setShow } = props;
     const handleClose = () => {
         setShow(false)
@@ -79,6 +87,14 @@ export default function ModalCreateUser(props) {
             await props.fetchListUserPaginate(1);
         }
     }
+
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
+}
     return (
         <>
 
@@ -115,7 +131,7 @@ export default function ModalCreateUser(props) {
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
-                                <img src={previewImage} alt={image} />
+                                <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
                                 :
                                 <span>Preview Image</span>
 
@@ -132,6 +148,9 @@ export default function ModalCreateUser(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </>
     );
 }

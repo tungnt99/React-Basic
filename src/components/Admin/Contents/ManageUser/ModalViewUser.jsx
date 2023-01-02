@@ -3,7 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import _ from 'lodash';
+import Lightbox from "react-awesome-lightbox";
+
 export default function ModalViewUser(props) {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const { show, setShow, dataUpdateUser } = props;
     const handleClose = () => {
         setShow(false)
@@ -26,6 +35,14 @@ export default function ModalViewUser(props) {
             }
         }
     }, [dataUpdateUser])
+
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
+    }
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
@@ -50,7 +67,7 @@ export default function ModalViewUser(props) {
                         </div>
                         <div className="col-md-6 mb-3">
                             <label className="form-label">Username</label>
-                            <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} disabled/>
+                            <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} disabled />
                         </div>
 
                         <div className="col-md-6 mb-3">
@@ -66,7 +83,7 @@ export default function ModalViewUser(props) {
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
-                                <img src={previewImage} alt={previewImage} />
+                                <img src={previewImage} alt={previewImage} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                 :
                                 <span>Preview Image</span>
 
@@ -80,6 +97,9 @@ export default function ModalViewUser(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </>
     );
 }

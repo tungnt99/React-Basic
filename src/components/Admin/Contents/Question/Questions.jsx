@@ -6,10 +6,17 @@ import { MdRemoveCircle } from "react-icons/md";
 import { AiFillPlusCircle } from "react-icons/ai";
 import './assets/style.scss';
 import { v4 as uuidv4 } from "uuid";
+import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
-
 export default function Questions() {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const options = [
         { value: "chocolate", label: "Chocolate" },
         { value: "strawberry", label: "Strawberry" },
@@ -101,13 +108,14 @@ export default function Questions() {
     const handleOnChangeFileQuestion = (questionId, event) => {
         let questionsClone = _.cloneDeep(questions);
         let index = questionsClone.findIndex((item) => item.id === questionId);
+        // console.log(questionsClone);
         if (index > -1 && event.target && event.target.files && event.target.files[0]) {
             questionsClone[index].imageFile = event.target.files[0];
             // console.log("check file", event.target.files[0]);
             questionsClone[index].imageName = event.target.files[0].name;
-
             setQuestions(questionsClone)
         }
+
     }
 
     const handleAnswerQuestion = (type, answerId, questionId, value) => {
@@ -133,9 +141,22 @@ export default function Questions() {
         }
     }
 
+    const handlePreviewImage = (questionId) => {
+        let questionsClone = _.cloneDeep(questions);
+        let index = questionsClone.findIndex(item => item.id === questionId);
+        // console.log('index', questionsClone[index]);
+        if (index > -1) {
+            setDataImagePreview({
+                url: URL.createObjectURL(questionsClone[index].imageFile),
+                title: questionsClone[index].imageName
+            })
+            setIsPreviewImage(true)
+        }
+    }
     const handleSubmitQuestionForQuiz = () => {
         console.log('submitQuestion', questions);
     }
+
     return (
         <div className="questions-container container">
             <div className="question-title">Questions</div>
@@ -161,9 +182,8 @@ export default function Questions() {
                                     <div className="col-2 px-3 mt-3 d-flex flex-column align-items-center">
                                         <label htmlFor={`${question.id}`} role="button" className="btn btn-outline-secondary ">Upload Image</label>
                                         <input id={`${question.id}`} hidden type="file" className="form-control" onChange={(event) => handleOnChangeFileQuestion(question.id, event)} />
-                                        <span>{question.imageName ? question.imageName : "0 file is uploaded"}</span>
+                                        <span>{question.imageName ? <span style={{ cursor: 'pointer' }} onClick={() => handlePreviewImage(question.id)}>{question.imageName}</span> : "0 file is uploaded"}</span>
                                     </div>
-
                                     <div className="col-2 d-flex align-items-center gap-2">
                                         <button className="btn btn-success d-flex">
                                             <BsPlusCircle onClick={() => handleAddRemoveQuestion("ADD", "")} />
@@ -208,6 +228,9 @@ export default function Questions() {
                     }
                 </div>
             </div>
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </div>
     );
 }

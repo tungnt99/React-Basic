@@ -2,8 +2,16 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Lightbox from "react-awesome-lightbox";
 
 export default function ModalViewQuiz(props) {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const { show, setShow, dataViewQuiz } = props;
     const handleClose = () => {
         setShow(false);
@@ -23,6 +31,14 @@ export default function ModalViewQuiz(props) {
             }
         }
     }, [dataViewQuiz])
+    
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
+}
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
@@ -50,7 +66,7 @@ export default function ModalViewQuiz(props) {
                             </div>
                             <div className='col-md-12 img-preview'>
                                 {previewImage ?
-                                    <img src={previewImage} alt={previewImage} />
+                                    <img src={previewImage} alt={previewImage} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
                                     :
                                     <span>Preview Image</span>
                                 }
@@ -63,6 +79,9 @@ export default function ModalViewQuiz(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </>
     )
 }

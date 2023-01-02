@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style/manage-quiz.scss';
-
+import Lightbox from "react-awesome-lightbox";
 import { toast } from "react-toastify";
 import { getAllDataQuizForAdmin, postCreateNewQuiz } from '../../../../services/apiServices';
 import TableQuiz from './TableQuiz';
@@ -11,6 +11,13 @@ import ModalViewQuiz from './ModalViewQuiz';
 
 
 export default function ManageQuiz(props) {
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [difficulty, setDifficulty] = useState("EASY");
@@ -75,6 +82,14 @@ export default function ManageQuiz(props) {
         setShowModalViewQuiz(true);
         setDataViewQuiz(quiz);
     }
+
+    const handlePreviewImage = () => {
+            setDataImagePreview({
+                url: previewImage,
+                title: previewImage
+            })
+            setIsPreviewImage(true)
+    }
     return (
         <div className='quiz-container'>
             <Accordion defaultActiveKey="0">
@@ -107,7 +122,7 @@ export default function ManageQuiz(props) {
                                 </div>
                                 <div className='col-md-12 img-preview'>
                                     {previewImage ?
-                                        <img src={previewImage} alt={image} />
+                                        <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
                                         :
                                         <span>Preview Image</span>
                                     }
@@ -151,7 +166,9 @@ export default function ManageQuiz(props) {
                 </Accordion.Item>
             </Accordion>
 
-
+            {isPreviewImage === true &&
+                <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+            }
         </div>
     )
 }
