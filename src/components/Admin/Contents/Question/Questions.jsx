@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { BsPlusCircle } from "react-icons/bs";
 import { MdRemoveCircleOutline } from "react-icons/md";
@@ -8,6 +8,7 @@ import './assets/style.scss';
 import { v4 as uuidv4 } from "uuid";
 import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
+import { getAllDataQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiServices";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 export default function Questions() {
     // react lightbox
@@ -17,14 +18,9 @@ export default function Questions() {
         url: '',
     });
     // end react lightbox
-    const options = [
-        { value: "chocolate", label: "Chocolate" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "vanilla", label: "Vanilla" },
-    ];
 
-    const [selectQuiz, setSelectQuiz] = useState({});
-
+    const [listQuiz, setListQuiz] = useState([]);
+    const [selectedQuiz, setSelectedQuiz] = useState({});
     const [questions, setQuestions] = useState([
         {
             id: uuidv4(),
@@ -41,6 +37,24 @@ export default function Questions() {
         },
     ]);
     // console.log(questions);
+    useEffect(() => {
+        fetchAllDataQuiz();
+    }, [])
+
+    const fetchAllDataQuiz = async () => {
+        let res = await getAllDataQuizForAdmin();
+        if (res.EC === 0) {
+            let newQuiz = res.DT.map((item) => {
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`,
+                }
+            })
+            setListQuiz(newQuiz);
+        }
+    }
+    // console.log(listQuiz)
+
     const handleAddRemoveQuestion = (type, id) => {
         // console.log('type: ', type, 'id: ',id);
         if (type === "ADD") {
@@ -153,8 +167,20 @@ export default function Questions() {
             setIsPreviewImage(true)
         }
     }
-    const handleSubmitQuestionForQuiz = () => {
-        console.log('submitQuestion', questions);
+    const handleSubmitQuestionForQuiz = async () => {
+        console.log('submitQuestion', questions, 'selectedQuiz: ', selectedQuiz);
+        // submitQuestion
+        await Promise.all(questions.map(async (question) => {
+            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile)
+            console.log('check question: ', q);
+
+            await Promise.all(question.answers.map(async (answer) => {
+                const a = await postCreateNewAnswerForQuestion(answer.description, answer.correct_answer, q.DT.id)
+                console.log('check answer: ', a)
+            }))
+
+        }));
+        // submit answers
     }
 
     return (
@@ -164,9 +190,9 @@ export default function Questions() {
                 <div className="col-12">
                     <label>Select Quiz:</label>
                     <Select
-                        defaultValue={selectQuiz}
-                        onChange={setSelectQuiz}
-                        options={options}
+                        defaultValue={selectedQuiz}
+                        onChange={setSelectedQuiz}
+                        options={listQuiz}
                     />
                 </div>
                 <div className="mt-3">
