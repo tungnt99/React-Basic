@@ -8,9 +8,12 @@ import './assets/style.scss';
 import { v4 as uuidv4 } from "uuid";
 import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
+import { toast } from "react-toastify";
+
 import { getAllDataQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiServices";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 export default function Questions() {
+
     // react lightbox
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
@@ -18,24 +21,23 @@ export default function Questions() {
         url: '',
     });
     // end react lightbox
-
+    const initQuestions = [{
+        id: uuidv4(),
+        description: "",
+        imageFile: "",
+        imageName: "",
+        answers: [
+            {
+                id: uuidv4(),
+                description: "",
+                isCorrect: false,
+            },
+        ],
+    },
+    ]
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState({});
-    const [questions, setQuestions] = useState([
-        {
-            id: uuidv4(),
-            description: "",
-            imageFile: "",
-            imageName: "",
-            answers: [
-                {
-                    id: uuidv4(),
-                    description: "",
-                    isCorrect: false,
-                },
-            ],
-        },
-    ]);
+    const [questions, setQuestions] = useState(initQuestions);
     // console.log(questions);
     useEffect(() => {
         fetchAllDataQuiz();
@@ -168,19 +170,60 @@ export default function Questions() {
         }
     }
     const handleSubmitQuestionForQuiz = async () => {
-        console.log('submitQuestion', questions, 'selectedQuiz: ', selectedQuiz);
-        // submitQuestion
-        await Promise.all(questions.map(async (question) => {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile)
-            console.log('check question: ', q);
+        if (_.isEmpty(selectedQuiz)) {
+            toast.error('Please select a Quiz');
+            return;
+        }
+        // validate answer
+        let isValidAnswer = true;
+        let indexQuestion = 0, indexAnswer = 0;
+        for (let i = 0; i < questions.length; i++) {
+            for (let j = 0; j < questions[i].answers.length; j++) {
+                if (!questions[i].answers[j].description) {
+                    isValidAnswer = false;
+                    indexAnswer = j;
+                    break;
+                }
+            }
+            indexQuestion = i;
+            if (!isValidAnswer) {
+                break;
+            }
+        }
+        if (isValidAnswer === false) {
+            toast.error(`Please select a answer ${indexAnswer + 1} at Question ${indexQuestion + 1}`);
+            return;
+        }
+        // end validation answer
 
-            await Promise.all(question.answers.map(async (answer) => {
+        // validate question 
+        let isValidQuestion = true;
+        let indexValidQuestions = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (!questions[i].description) {
+                isValidQuestion = false;
+                indexValidQuestions = i;
+                break;
+
+            }
+        }
+        if (isValidQuestion === false) {
+            toast.error(`Please select a Question ${indexValidQuestions + 1}`);
+            return;
+        }
+        // end validation question
+
+        for (const question of questions) {
+            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
+            console.log('check question: ', q);
+            for (const answer of question.answers) {
                 const a = await postCreateNewAnswerForQuestion(answer.description, answer.correct_answer, q.DT.id)
                 console.log('check answer: ', a)
-            }))
 
-        }));
-        // submit answers
+            }
+        }
+        toast.success('Create Question and Answer Success');
+        setQuestions(initQuestions);
     }
 
     return (
