@@ -8,6 +8,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import ModalDeleteQuiz from './ModalDeleteQuiz';
 import ModalUpdateQuiz from './ModalUpdateQuiz';
 import ModalViewQuiz from './ModalViewQuiz';
+import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
 
 
 export default function ManageQuiz(props) {
@@ -36,7 +38,7 @@ export default function ManageQuiz(props) {
         fetchAllDataQuiz();
     }, [])
 
-    const fetchAllDataQuiz = async() => {
+    const fetchAllDataQuiz = async () => {
         let res = await getAllDataQuizForAdmin()
         if (res.EC === 0) {
             setListQuiz(res.DT);
@@ -84,11 +86,11 @@ export default function ManageQuiz(props) {
     }
 
     const handlePreviewImage = () => {
-            setDataImagePreview({
-                url: previewImage,
-                title: previewImage
-            })
-            setIsPreviewImage(true)
+        setDataImagePreview({
+            url: previewImage,
+            title: previewImage
+        })
+        setIsPreviewImage(true)
     }
     return (
         <div className='quiz-container'>
@@ -114,7 +116,7 @@ export default function ManageQuiz(props) {
                                         <option value="MEDIUM">MEDIUM</option>
                                         <option value="HARD">HARD</option>
                                     </select>
-                                  
+
                                 </div>
                                 <div className='more-actions mb-3'>
                                     <label>Upload Image</label>
@@ -122,7 +124,7 @@ export default function ManageQuiz(props) {
                                 </div>
                                 <div className='col-md-12 img-preview'>
                                     {previewImage ?
-                                        <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
+                                        <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                         :
                                         <span>Preview Image</span>
                                     }
@@ -132,11 +134,6 @@ export default function ManageQuiz(props) {
                                 </div>
                             </fieldset>
                         </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header>Table Quizs</Accordion.Header>
-                    <Accordion.Body>
                         <div className='list-quiz'>
                             <TableQuiz
                                 listQuiz={listQuiz}
@@ -144,24 +141,19 @@ export default function ManageQuiz(props) {
                                 handleModalUpdateQuiz={handleModalUpdateQuiz}
                                 handleModalViewQuiz={handleModalViewQuiz}
                             />
-                            <ModalDeleteQuiz
-                                show={showModalDeleteQuiz}
-                                setShow={setShowModalDeleteQuiz}
-                                dataDeleteQuiz={dataDeleteQuiz}
-                                fetchAllDataQuiz={fetchAllDataQuiz}
-                            />
-                            <ModalUpdateQuiz
-                                show={showModalUpdateQuiz}
-                                setShow={setShowModalUpdateQuiz}
-                                dataUpdateQuiz={dataUpdateQuiz}
-                                fetchAllDataQuiz={fetchAllDataQuiz}
-                            />
-                            <ModalViewQuiz
-                                show={showModalViewQuiz}
-                                setShow={setShowModalViewQuiz}
-                                dataViewQuiz={dataViewQuiz}
-                            />
                         </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA />
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Body>
+                        <AssignQuiz />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
@@ -169,6 +161,23 @@ export default function ManageQuiz(props) {
             {isPreviewImage === true &&
                 <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
             }
+            <ModalDeleteQuiz
+                show={showModalDeleteQuiz}
+                setShow={setShowModalDeleteQuiz}
+                dataDeleteQuiz={dataDeleteQuiz}
+                fetchAllDataQuiz={fetchAllDataQuiz}
+            />
+            <ModalUpdateQuiz
+                show={showModalUpdateQuiz}
+                setShow={setShowModalUpdateQuiz}
+                dataUpdateQuiz={dataUpdateQuiz}
+                fetchAllDataQuiz={fetchAllDataQuiz}
+            />
+            <ModalViewQuiz
+                show={showModalViewQuiz}
+                setShow={setShowModalViewQuiz}
+                dataViewQuiz={dataViewQuiz}
+            />
         </div>
     )
 }

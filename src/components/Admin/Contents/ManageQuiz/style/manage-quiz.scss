@@ -28,3 +28,18 @@
         }
     }
 }
+.questions-container{
+    padding: 15px;
+    .question-title{
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .add-new-question{
+        .question-main{
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    }
+}
