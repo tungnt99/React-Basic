@@ -49,7 +49,7 @@ export default function Questions() {
             let newQuiz = res.DT.map((item) => {
                 return {
                     value: item.id,
-                    label: `${item.id} - ${item.description}`,
+                    label: `${item.id} - ${item.name} - ${item.description}`,
                 }
             })
             setListQuiz(newQuiz);
@@ -215,17 +215,16 @@ export default function Questions() {
 
         for (const question of questions) {
             const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
-            console.log('check question: ', q);
+            // console.log('check question: ', q);
             for (const answer of question.answers) {
-                const a = await postCreateNewAnswerForQuestion(answer.description, answer.correct_answer, q.DT.id)
-                console.log('check answer: ', a)
-
+                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
+                // console.log('check answer: ', a)
             }
         }
         toast.success('Create Question and Answer Success');
         setQuestions(initQuestions);
-    }
 
+    }
     return (
         <div className="questions-container container">
             <div className="question-title">Questions</div>

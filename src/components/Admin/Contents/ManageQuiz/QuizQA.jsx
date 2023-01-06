@@ -10,7 +10,7 @@ import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
 import { toast } from "react-toastify";
 
-import { getAllDataQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiServices";
+import { getAllDataQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, getQuizWithQA } from "../../../../services/apiServices";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 
 
@@ -48,14 +48,20 @@ export default function QuizQA(props) {
     useEffect(() => {
         fetchAllDataQuiz();
     }, [])
+    useEffect(() => {
+        if(selectedQuiz && selectedQuiz.value){
+            fetchQuizWithQA()
 
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedQuiz])
     const fetchAllDataQuiz = async () => {
         let res = await getAllDataQuizForAdmin();
         if (res.EC === 0) {
             let newQuiz = res.DT.map((item) => {
                 return {
                     value: item.id,
-                    label: `${item.id} - ${item.description}`,
+                    label: `${item.id} - ${item.name} - ${item.description}`,
                 }
             })
             setListQuiz(newQuiz);
@@ -63,6 +69,33 @@ export default function QuizQA(props) {
     }
     // console.log(listQuiz)
 
+    // get quiz with QA
+    function urltoFile(url, filename, mimeType) {
+        return (fetch(url)
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+        );
+    }
+    const fetchQuizWithQA = async () => {
+        let res = await getQuizWithQA(selectedQuiz.value);
+        if (res && res.EC === 0) {
+            // convert base64 to File object
+            //return a promise that resolves with a File instance
+            let newQA = [];
+            for (let i = 0; i < res.DT.qa.length; i++) {
+                let q = res.DT.qa[i];
+                if (q.imageFile) {
+                    q.imageName = `Question-${q.id}.png`;
+                    q.imageFile = await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`, 'image/png');
+                }
+                newQA.push(q);
+            }
+            setQuestions(newQA)
+        }
+
+        console.log("check res: ", res);
+    }
+    // end get quiz with QA
     const handleAddRemoveQuestion = (type, id) => {
         // console.log('type: ', type, 'id: ',id);
         if (type === "ADD") {
@@ -223,7 +256,7 @@ export default function QuizQA(props) {
             const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
             console.log('check question: ', q);
             for (const answer of question.answers) {
-                const a = await postCreateNewAnswerForQuestion(answer.description, answer.correct_answer, q.DT.id)
+                const a = await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
                 console.log('check answer: ', a)
 
             }
