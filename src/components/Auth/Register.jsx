@@ -4,7 +4,12 @@ import { toast } from 'react-toastify';
 import { postRegister } from '../../services/apiServices';
 import './assets/formlogin.scss'
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { useEffect } from 'react';
 export default function Register(props) {
+    const [title] = useState("Register");
+    useEffect(() => {
+        document.title = title;
+    }, [title])
     const navigate = useNavigate();
     const handleBackHome = () => {
         navigate('/')

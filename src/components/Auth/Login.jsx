@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,6 +8,10 @@ import './assets/formlogin.scss'
 import { ImSpinner } from "react-icons/im";
 
 export default function Login(props) {
+    const [title] = useState("Login");
+    useEffect(() => {
+        document.title = title;
+    },[title])
     // login redux
     const dispatch = useDispatch();
     // end login redux

@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Dashboard() {
+export default function DashBoard(props) {
+  const [title] = useState('Dashboard');
+  useEffect(() => {
+    document.title = title;
+  })
   return (
-    <div>Dashboard</div>
+    <div>DashBoard</div>
   )
 }

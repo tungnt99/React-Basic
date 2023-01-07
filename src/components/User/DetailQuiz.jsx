@@ -5,6 +5,7 @@ import _ from 'lodash';
 import './assets/detail-quiz.scss'
 import Question from './Question';
 import ModalResult from './ModalResult';
+import RightContent from './RightContent/RightContent';
 
 export default function DetailQuiz(props) {
     const [title] = useState('Test Quiz User');
@@ -175,7 +176,11 @@ export default function DetailQuiz(props) {
                         <button className="btn btn-warning mx-2" onClick={() => handleFinishQuiz()}>Finish</button>
                     </div>
                 </div>
-                <div className="right-content col-md-4">count down</div>
+                <div className="right-content col-md-4">
+                    <RightContent 
+                        dataQuiz={dataQuiz}
+                    />
+                </div>
             </div>
             <ModalResult 
                 show={isShowModalResult}
