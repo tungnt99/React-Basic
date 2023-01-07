@@ -10,7 +10,7 @@ import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
 import { toast } from "react-toastify";
 
-import { getAllDataQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, getQuizWithQA } from "../../../../services/apiServices";
+import { getAllDataQuizForAdmin, getQuizWithQA, postUpdateInsertQA } from "../../../../services/apiServices";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 
 
@@ -49,9 +49,8 @@ export default function QuizQA(props) {
         fetchAllDataQuiz();
     }, [])
     useEffect(() => {
-        if(selectedQuiz && selectedQuiz.value){
+        if (selectedQuiz && selectedQuiz.value) {
             fetchQuizWithQA()
-
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedQuiz])
@@ -93,7 +92,7 @@ export default function QuizQA(props) {
             setQuestions(newQA)
         }
 
-        console.log("check res: ", res);
+        // console.log("check res: ", res);
     }
     // end get quiz with QA
     const handleAddRemoveQuestion = (type, id) => {
@@ -251,17 +250,26 @@ export default function QuizQA(props) {
             return;
         }
         // end validation question
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
 
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
-            console.log('check question: ', q);
-            for (const answer of question.answers) {
-                const a = await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
-                console.log('check answer: ', a)
+        let questionsClone = _.cloneDeep(questions);
+        for (let i = 0; i < questionsClone.length; i++) {
+            if (questionsClone[i].imageFile) {
 
+                questionsClone[i].imageFile = await toBase64(questionsClone[i].imageFile)
             }
         }
-        toast.success('Create Question and Answer Success');
+        // console.log("questionsClone: ", questionsClone);
+        let res = await postUpdateInsertQA({ quizId: selectedQuiz.value, questions: questionsClone });
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            fetchQuizWithQA();
+        }
         setQuestions(initQuestions);
     }
 

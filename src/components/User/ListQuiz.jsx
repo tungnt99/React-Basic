@@ -23,8 +23,8 @@ export default function ListQuiz(props) {
                 <div className='row cart-list'>
                     {listQuiz && listQuiz.length > 0 && listQuiz.map((item, index) => {
                         return (
-                            <div className="card-item" key={index} style={{ width: "20rem" }}>
-                                <div className='border border-secondary'>
+                            <div className="card-item col-md-3" key={index}>
+                                <div className='border border-secondary card-item-content'>
                                     <img src={`data:image/png;base64, ${item.image}`} className="card-img-top" alt="..." />
                                     <div className="card-body">
                                         <h5 className="card-title">Quiz {index + 1}</h5>
