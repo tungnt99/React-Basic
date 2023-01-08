@@ -179,6 +179,7 @@ export default function DetailQuiz(props) {
                 <div className="right-content col-md-4">
                     <RightContent 
                         dataQuiz={dataQuiz}
+                        handleFinishQuiz={handleFinishQuiz}
                     />
                 </div>
             </div>
