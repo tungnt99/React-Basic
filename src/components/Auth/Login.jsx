@@ -6,6 +6,7 @@ import { doLogin } from '../../redux/action/useAction';
 import { postLogin } from '../../services/apiServices';
 import './assets/formlogin.scss'
 import { ImSpinner } from "react-icons/im";
+import Language from '../Header/Language';
 
 export default function Login(props) {
     const [title] = useState("Login");
@@ -70,7 +71,7 @@ export default function Login(props) {
     }
     return (
         <div className="login-container">
-            <div className="header">
+            <div className="header d-flex justify-content-end gap-3">
                 <div className="header-text" >
                     <span className="header-text-info">
                         Don't have an account yet?
@@ -80,6 +81,7 @@ export default function Login(props) {
                     </button>
                     <a href="https://www.typeform.com/signup/" >Need help?</a>
                 </div>
+                <Language />
             </div>
             <div className="title col-4 mx-auto">Typeform</div>
             <div className="auth-content col-4 mx-auto">

@@ -16,3 +16,12 @@
   display: flex;
   align-items: center;
 }
+.dropdown-toggle::after{
+  display: none;
+
+}
+#basic-nav-dropdown{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

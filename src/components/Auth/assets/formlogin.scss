@@ -1,9 +1,10 @@
 .login-container{
     .header{
-        line-height: 45px;
+        align-items: center;
         text-align: right;
+        padding: 0 25px;
         &-text{
-            padding: 10px 25px;
+            padding: 10px 0;
             a{
                 color: #000;
             }

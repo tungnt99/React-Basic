@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { logout } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/useAction';
+import Language from './Language';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ export default function Header() {
             <NavLink className="nav-link" activeclassname="active" to="/admin">Admin</NavLink>
           </Nav>
           <Nav>
+            <Language />
             {isAuthenticated === false ?
               <>
                 <button className='btn btn-light me-2' onClick={() => handleClickLogin()}>Login</button>
@@ -81,6 +83,7 @@ export default function Header() {
                 </NavDropdown>
               </>
             }
+
           </Nav>
         </Navbar.Collapse>
       </Container>

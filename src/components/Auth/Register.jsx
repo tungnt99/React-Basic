@@ -5,6 +5,7 @@ import { postRegister } from '../../services/apiServices';
 import './assets/formlogin.scss'
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useEffect } from 'react';
+import Language from '../Header/Language';
 export default function Register(props) {
     const [title] = useState("Register");
     useEffect(() => {
@@ -51,7 +52,7 @@ export default function Register(props) {
     }
     return (
         <div className="login-container">
-            <div className="header">
+            <div className="header d-flex justify-content-end gap-3">
                 <div className="header-text" >
                     <span className="header-text-info">
                         Don't have an account yet?
@@ -61,6 +62,7 @@ export default function Register(props) {
                     </button>
                     <a href="https://www.typeform.com/signup/" >Need help?</a>
                 </div>
+                <Language />
             </div>
             <div className="title col-4 mx-auto">Typeform</div>
             <div className="auth-content col-4 mx-auto">
