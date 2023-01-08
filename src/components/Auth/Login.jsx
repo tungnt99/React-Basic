@@ -61,6 +61,13 @@ export default function Login(props) {
             setLoading(false);
         }
     }
+
+    const handleKeydown = (event) => {
+        // console.log(event.key, event);
+        if(event && event.keyCode === 13){
+            handleLogin();
+        }
+    }
     return (
         <div className="login-container">
             <div className="header">
@@ -84,7 +91,7 @@ export default function Login(props) {
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type={"password"} value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} />
+                        <input type={"password"} value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} onKeyDown={(event) => handleKeydown(event)}/>
                     </div>
                     <div className="forgot-password">Forgot password?</div>
                     <div className="btn-login">
