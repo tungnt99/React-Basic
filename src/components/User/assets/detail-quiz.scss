@@ -65,6 +65,14 @@
                     background-color: red;
                     color: #fff;
                 }
+                &.active{
+                    background-color: #b91010;
+                    color: #fff;
+                }
+                &.clicked{
+                    color: red;
+                    background-color: #ccc;
+                }
             }
         }
     }

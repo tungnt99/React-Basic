@@ -180,6 +180,7 @@ export default function DetailQuiz(props) {
                     <RightContent 
                         dataQuiz={dataQuiz}
                         handleFinishQuiz={handleFinishQuiz}
+                        setIndex={setIndex}
                     />
                 </div>
             </div>
