@@ -60,7 +60,7 @@ export default function DetailQuiz(props) {
                         item.answers.isSelected = false; // Mặc định đặt câu trả lời là false
                         answers.push(item.answers); //push các đáp án vào mảng answers //item.answers -> các đáp án 
                     })
-
+                    answers = _.orderBy(answers, ['id'], ['asc']); //sắp xếp câu hỏi theo id
                     return { questionId: key, answers, questionDescription, image } // key: id của câu hỏi, answers: các câu trả lời được trả về, questionDescription: tên câu hỏi, image: hình ảnh câu hỏi
                 })
                 .value();
