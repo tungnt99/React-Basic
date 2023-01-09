@@ -6,8 +6,12 @@ import { toast } from 'react-toastify';
 import { putUpdateUser } from '../../../../services/apiServices';
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
+import { useTranslation } from 'react-i18next';
 
 export default function ModalUpdateUser(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     // react lightbox
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
@@ -102,11 +106,9 @@ export default function ModalUpdateUser(props) {
     }
     return (
         <>
-
-
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal Update User</Modal.Title>
+                    <Modal.Title>{t('createuser.updateuser')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row">
@@ -115,7 +117,7 @@ export default function ModalUpdateUser(props) {
                             <input type="email" disabled className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t('createuser.password')}</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -125,37 +127,35 @@ export default function ModalUpdateUser(props) {
                             />
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t('createuser.username')}</label>
                             <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} />
                         </div>
-
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t('createuser.role')}</label>
                             <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
-                                <option value="USER">USER</option>
-                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">{t('createuser.user')}</option>
+                                <option value="ADMIN">{t('createuser.admin')}</option>
                             </select>
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label label-upload" htmlFor='upload-image' role="button"> <FcPlus /> Upload File Image</label>
+                            <label className="form-label label-upload" htmlFor='upload-image' role="button"> <FcPlus />{t('createuser.uploadimage')}</label>
                             <input type="file" className="form-control" id="upload-image" hidden onChange={(event) => handleUploadImage(event)} />
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
                                 <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                 :
-                                <span>Preview Image</span>
-
+                                <span>{t('createuser.preview')}</span>
                             }
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('createuser.close')}
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-                        Save Changes
+                        {t('createuser.save')}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -5,15 +5,19 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
 import { postCresteNewUser } from '../../../../services/apiServices';
 import Lightbox from "react-awesome-lightbox";
+import { useTranslation } from 'react-i18next';
 
 export default function ModalCreateUser(props) {
-      // react lightbox
-      const [isPreviewImage, setIsPreviewImage] = useState(false);
-      const [dataImagePreview, setDataImagePreview] = useState({
-          title: '',
-          url: '',
-      });
-      // end react lightbox
+    // translation
+    const { t } = useTranslation();
+    // end translation
+    // react lightbox
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: '',
+    });
+    // end react lightbox
     const { show, setShow } = props;
     const handleClose = () => {
         setShow(false)
@@ -94,14 +98,12 @@ export default function ModalCreateUser(props) {
             title: previewImage
         })
         setIsPreviewImage(true)
-}
+    }
     return (
         <>
-
-
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
                 <Modal.Header closeButton>
-                    <Modal.Title>Add New User</Modal.Title>
+                    <Modal.Title>{t('createuser.adduser')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row">
@@ -110,30 +112,30 @@ export default function ModalCreateUser(props) {
                             <input type="email" className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t('createuser.password')}</label>
                             <input type="password" className="form-control" value={password} onChange={(event) => setPassword(event.target.value)} />
                         </div>
 
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t('createuser.username')}</label>
                             <input type="text" className="form-control" value={userName} onChange={(event) => setUserName(event.target.value)} />
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t('createuser.role')}</label>
                             <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
-                                <option value="USER">USER</option>
-                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">{t('createuser.user')}</option>
+                                <option value="ADMIN">{t('createuser.admin')}</option>
                             </select>
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label label-upload" htmlFor='upload-image' role="button"> <FcPlus /> Upload File Image</label>
+                            <label className="form-label label-upload" htmlFor='upload-image' role="button"> <FcPlus />{t('createuser.uploadimage')}</label>
                             <input type="file" className="form-control" id="upload-image" hidden onChange={(event) => handleUploadImage(event)} />
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
-                                <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
+                                <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                 :
-                                <span>Preview Image</span>
+                                <span>{t('createuser.preview')}</span>
 
                             }
                         </div>
@@ -141,10 +143,10 @@ export default function ModalCreateUser(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('createuser.close')}
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-                        Save Changes
+                        {t('createuser.save')}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -10,9 +10,13 @@ import ModalUpdateQuiz from './ModalUpdateQuiz';
 import ModalViewQuiz from './ModalViewQuiz';
 import QuizQA from './QuizQA';
 import AssignQuiz from './AssignQuiz';
+import { useTranslation } from 'react-i18next';
 
 
 export default function ManageQuiz(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     // react lightbox
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
@@ -96,41 +100,41 @@ export default function ManageQuiz(props) {
         <div className='quiz-container'>
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>ManageQuiz</Accordion.Header>
+                    <Accordion.Header>{t('managequiz.managequiz')}</Accordion.Header>
                     <Accordion.Body>
                         <div className='add-new'>
                             <fieldset className="border rounded-3 p-3" >
-                                <legend className="float-none w-auto px-3">Add New Quiz:</legend>
+                                <legend className="float-none w-auto px-3">{t('managequiz.addnewquiz')}:</legend>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" placeholder='Your quiz name' value={name} onChange={(event) => setName(event.target.value)} />
-                                    <label>Name</label>
+                                    <label>{t('managequiz.name')}</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" placeholder='Description' value={description} onChange={(event) => setDescription(event.target.value)} />
-                                    <label >Description</label>
+                                    <label >{t('managequiz.desc')}</label>
                                 </div>
                                 <div className=' mb-3'>
-                                    <label className="form-label">Type</label>
+                                    <label className="form-label">{t('managequiz.type')}</label>
                                     <select className="form-select" value={difficulty} onChange={(event) => setDifficulty(event.target.value)}>
-                                        <option value="EASY">EASY</option>
-                                        <option value="MEDIUM">MEDIUM</option>
-                                        <option value="HARD">HARD</option>
+                                        <option value="EASY">{t('managequiz.easy')}</option>
+                                        <option value="MEDIUM">{t('managequiz.medium')}</option>
+                                        <option value="HARD">{t('managequiz.hard')}</option>
                                     </select>
 
                                 </div>
                                 <div className='more-actions mb-3'>
-                                    <label>Upload Image</label>
+                                    <label>{t('managequiz.uploadimage')}</label>
                                     <input type="file" className='form-control' onChange={(event) => handleChangeFile(event)} />
                                 </div>
                                 <div className='col-md-12 img-preview'>
                                     {previewImage ?
                                         <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
                                         :
-                                        <span>Preview Image</span>
+                                        <span>{t('managequiz.preview')}</span>
                                     }
                                 </div>
                                 <div className='form-group my-3'>
-                                    <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>Create Quiz</button>
+                                    <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>{t('managequiz.create')}</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -145,13 +149,13 @@ export default function ManageQuiz(props) {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Header>{t('managequiz.updateqa')}</Accordion.Header>
                     <Accordion.Body>
                         <QuizQA />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Header>{t('managequiz.assign')}</Accordion.Header>
                     <Accordion.Body>
                         <AssignQuiz />
                     </Accordion.Body>

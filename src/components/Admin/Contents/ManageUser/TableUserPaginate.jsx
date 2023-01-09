@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactPaginate from "react-paginate";
+import { useTranslation } from 'react-i18next';
 
 
 export default function TableUserPaginate(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     const { listUsers, fetchListUserPaginate, pageCount } = props;
-
     const handlePageClick = (event) => {
         fetchListUserPaginate(+event.selected + 1);
         props.setCurrentPage(+event.selected + 1)
@@ -18,10 +21,10 @@ export default function TableUserPaginate(props) {
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">UserName</th>
+                        <th scope="col">{t('tableuser.username')}</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{t('tableuser.role')}</th>
+                        <th scope="col">{t('tableuser.action')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,16 +36,16 @@ export default function TableUserPaginate(props) {
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <button className='mx-2 btn btn-info' onClick={() => props.handleModalViewUser(item)}>View</button>
-                                    <button className='mx-2 btn btn-warning' onClick={() => props.handleModalUpdateUser(item)}>Edit</button>
-                                    <button className='mx-2 btn btn-danger' onClick={() => props.handleModalDeleteUser(item)}>Delete</button>
+                                    <button className='mx-2 btn btn-info' onClick={() => props.handleModalViewUser(item)}>{t('tableuser.view')}</button>
+                                    <button className='mx-2 btn btn-warning' onClick={() => props.handleModalUpdateUser(item)}>{t('tableuser.edit')}</button>
+                                    <button className='mx-2 btn btn-danger' onClick={() => props.handleModalDeleteUser(item)}>{t('tableuser.delete')}</button>
 
                                 </td>
 
                             </tr>
                         )
                     })}
-                    {listUsers && listUsers.length === 0 && <tr><td colSpan={'5'} className="text-center    ">Not found data</td></tr>}
+                    {listUsers && listUsers.length === 0 && <tr><td colSpan={'5'} className="text-center">{t('tableuser.notdata')}</td></tr>}
 
                 </tbody>
             </table>

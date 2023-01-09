@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { getAllDataQuizForAdmin, getAllUsers, postAssignQuiz } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 
 export default function AssignQuiz() {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState({});
 
@@ -59,7 +63,7 @@ export default function AssignQuiz() {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="form-group col-md-6">
-                    <label className="form-label">Select Quiz</label>
+                    <label className="form-label">{t('assgin.selectquiz')}</label>
                     <Select
                         defaultValue={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -67,7 +71,7 @@ export default function AssignQuiz() {
                     />
                 </div>
                 <div className="form-group col-md-6">
-                    <label className="form-label">Select User</label>
+                    <label className="form-label">{t('assgin.selectuser')}</label>
                     <Select
                         defaultValue={selectedUser}
                         onChange={setSelectedUser}
@@ -75,7 +79,7 @@ export default function AssignQuiz() {
                     />
                 </div>
                 <div className="form-group mt-3">
-                    <button onClick={() => handleAssign()} className="btn btn-warning">Asign</button>
+                    <button onClick={() => handleAssign()} className="btn btn-warning">{t('assgin.assign')}</button>
                 </div>
             </div>
         </div>

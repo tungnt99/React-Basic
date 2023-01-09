@@ -5,8 +5,12 @@ import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
 import { putUpdateDataQuiz } from '../../../../services/apiServices';
 import Lightbox from "react-awesome-lightbox";
+import { useTranslation } from 'react-i18next';
 
 export default function ModalUpdateQuiz(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     // react lightbox
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
@@ -73,46 +77,46 @@ export default function ModalUpdateQuiz(props) {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="modal-add-user">
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal Update Quiz</Modal.Title>
+                    <Modal.Title>{t('managequiz.updatequiz')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='add-new'>
-                            <div className="form-floating mb-3">
-                                <input type="text" className="form-control" placeholder='Your quiz name' value={name} onChange={(event) => setName(event.target.value)} />
-                                <label>Name</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input type="text" className="form-control" placeholder='Description' value={description} onChange={(event) => setDescription(event.target.value)} />
-                                <label >Description</label>
-                            </div>
-                            <div className=' mb-3'>
-                                <label className="form-label">Type</label>
-                                <select className="form-select" value={difficulty} onChange={(event) => setDifficulty(event.target.value)}>
-                                    <option value="EASY">EASY</option>
-                                    <option value="MEDIUM">MEDIUM</option>
-                                    <option value="HARD">HARD</option>
+                        <div className="form-floating mb-3">
+                            <input type="text" className="form-control" placeholder='Your quiz name' value={name} onChange={(event) => setName(event.target.value)} />
+                            <label>{t('managequiz.name')}</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input type="text" className="form-control" placeholder='Description' value={description} onChange={(event) => setDescription(event.target.value)} />
+                            <label >{t('managequiz.desc')}</label>
+                        </div>
+                        <div className=' mb-3'>
+                            <label className="form-label">{t('managequiz.type')}</label>
+                            <select className="form-select" value={difficulty} onChange={(event) => setDifficulty(event.target.value)}>
+                                <option value="EASY">{t('managequiz.easy')}</option>
+                                <option value="MEDIUM">{t('managequiz.medium')}</option>
+                                <option value="HARD">{t('managequiz.hard')}</option>
 
-                                </select>
-                            </div>
-                            <div className='more-actions mb-3'>
-                                <label>Upload Image</label>
-                                <input type="file" className='form-control' onChange={(event) => handleChangeFile(event)} />
-                            </div>
-                            <div className='col-md-12 img-preview'>
-                                {previewImage ?
-                                    <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }}/>
-                                    :
-                                    <span>Preview Image</span>
-                                }
-                            </div>
+                            </select>
+                        </div>
+                        <div className='more-actions mb-3'>
+                            <label>{t('managequiz.uploadimage')}</label>
+                            <input type="file" className='form-control' onChange={(event) => handleChangeFile(event)} />
+                        </div>
+                        <div className='col-md-12 img-preview'>
+                            {previewImage ?
+                                <img src={previewImage} alt={image} onClick={() => handlePreviewImage()} style={{ cursor: 'pointer' }} />
+                                :
+                                <span>{t('managequiz.preview')}</span>
+                            }
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('managequiz.close')}
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitQuiz()}>
-                        Save Changes
+                        {t('managequiz.save')}
                     </Button>
                 </Modal.Footer>
             </Modal>

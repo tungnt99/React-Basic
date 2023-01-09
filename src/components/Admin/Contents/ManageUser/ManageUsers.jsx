@@ -8,8 +8,11 @@ import ModalUpdateUser from './ModalUpdateUser';
 import ModalViewUser from './ModalViewUser';
 import ModalDeleteUser from './ModalDeleteUser';
 import TableUserPaginate from './TableUserPaginate';
+import { useTranslation } from 'react-i18next';
 
 export default function ManageUsers(props) {
+  const { t } = useTranslation();
+
   const [listUsers, setListUsers] = useState([]);
   const [dataUpdateUser, setDataUpdateUser] = useState({});
   const [dataDeleteUser, setDataDeleteUser] = useState({});
@@ -62,12 +65,9 @@ export default function ManageUsers(props) {
   }
   return (
     <div className="manage-user-container container">
-      <div className="title">
-        Manage User
-      </div>
       <div className="manage-user-content">
-        <div className='btn-add-user'>
-          <button className='btn btn-success' onClick={() => setShowModalCreateUser(true)}><FcPlus /> Add new users</button>
+        <div className='btn-add-user py-3'>
+          <button className='btn btn-success' onClick={() => setShowModalCreateUser(true)}><FcPlus />{t('createuser.adduser')}</button>
         </div>
         <div className='create-user-content'>
           <div className='table-user-container'>

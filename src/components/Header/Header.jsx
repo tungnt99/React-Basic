@@ -11,8 +11,12 @@ import { logout } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/useAction';
 import Language from './Language';
+import { useTranslation } from 'react-i18next';
 
 export default function Header() {
+  // translation
+  const { t } = useTranslation();
+  // end translation
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState();
   // Login Redux
@@ -56,16 +60,16 @@ export default function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavLink className="nav-link" activeclassname="active" to="/">Home</NavLink>
-            <NavLink className="nav-link" activeclassname="active" to="/user">User</NavLink>
-            <NavLink className="nav-link" activeclassname="active" to="/admin">Admin</NavLink>
+            <NavLink className="nav-link" activeclassname="active" to="/">{t('header.home')}</NavLink>
+            <NavLink className="nav-link" activeclassname="active" to="/user">{t('header.user')}</NavLink>
+            <NavLink className="nav-link" activeclassname="active" to="/admin">{t('header.admin')}</NavLink>
           </Nav>
           <Nav>
             <Language />
             {isAuthenticated === false ?
               <>
-                <button className='btn btn-light me-2' onClick={() => handleClickLogin()}>Login</button>
-                <button className='btn btn-dark me-2' onClick={() => handleClickRegister()}>Sign up</button>
+                <button className='btn btn-light me-2' onClick={() => handleClickLogin()}>{t('header.login')}</button>
+                <button className='btn btn-dark me-2' onClick={() => handleClickRegister()}>{t('header.signup')}</button>
               </>
               :
               <>
@@ -78,8 +82,8 @@ export default function Header() {
                 }}
                   id="basic-nav-dropdown"
                   className='nav-dropdown'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item>{t('header.profile')}</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => handleLogout()}>{t('header.logout')}</NavDropdown.Item>
                 </NavDropdown>
               </>
             }

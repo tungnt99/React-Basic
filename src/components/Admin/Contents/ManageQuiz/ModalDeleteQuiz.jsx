@@ -3,20 +3,24 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import { deleteQuiz } from '../../../../services/apiServices';
+import { useTranslation } from 'react-i18next';
 
 export default function ModalDeleteQuiz(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     const { show, setShow, dataDeleteQuiz } = props;
     const handleClose = () => setShow(false);
 
-    const handleDeleteQuiz = async() => {
+    const handleDeleteQuiz = async () => {
         let data = await deleteQuiz(dataDeleteQuiz.id);
         console.log('dataDelete: ', data);
-        if(data && data.EC === 0){
+        if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
             await props.fetchAllDataQuiz();
         }
-        if(data && data.EC !== 0){
+        if (data && data.EC !== 0) {
             toast.error(data.EM);
             handleClose();
             await props.fetchAllDataQuiz();
@@ -26,15 +30,15 @@ export default function ModalDeleteQuiz(props) {
         <>
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm Delete Quiz?</Modal.Title>
+                    <Modal.Title>{t('deletequiz.title')}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure delete this quiz.name = <b>{dataDeleteQuiz && dataDeleteQuiz.name ? dataDeleteQuiz.name : ""}</b></Modal.Body>
+                <Modal.Body>{t('deletequiz.body')} = <b>{dataDeleteQuiz && dataDeleteQuiz.name ? dataDeleteQuiz.name : ""}</b></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Cancel
+                        {t('deletequiz.cancel')}
                     </Button>
                     <Button variant="primary" onClick={() => handleDeleteQuiz()}>
-                        Confirm
+                        {t('deletequiz.confirm')}
                     </Button>
                 </Modal.Footer>
             </Modal>

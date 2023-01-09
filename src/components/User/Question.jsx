@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
+import { useTranslation } from 'react-i18next';
+
 export default function Question(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const { data, index, handleCheckBox } = props;
     // console.log('data: ', data, 'index: ', index);
@@ -17,7 +22,7 @@ export default function Question(props) {
     }
     return (
         <>
-            <h3 className="question-title">Question {index + 1}: {data.questionDescription} ?</h3>
+            <h3 className="question-title">{t('listquiz.question')} {index + 1}: {data.questionDescription} ?</h3>
             {data.image ?
                 <div className="question-image">
                     <img src={`data:image/jpeg;base64, ${data.image}`} alt="anh" onClick={() => setIsPreviewImage(true)}/>
@@ -28,7 +33,7 @@ export default function Question(props) {
                 </div>
                 :
                 <div className="question-image not-found">
-                    Image not found
+                {t('listquiz.notimage')}
                 </div>
             }
             <div className="question-answer">

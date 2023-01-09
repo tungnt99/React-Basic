@@ -9,12 +9,16 @@ import { v4 as uuidv4 } from "uuid";
 import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
 import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 
 import { getAllDataQuizForAdmin, getQuizWithQA, postUpdateInsertQA } from "../../../../services/apiServices";
 uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 
 
 export default function QuizQA(props) {
+    // translation
+    const { t } = useTranslation();
+    // end translation
     // const options = [
     //     { value: 'chocolate', label: 'Chocolate' },
     //     { value: 'strawberry', label: 'Strawberry' },
@@ -277,7 +281,7 @@ export default function QuizQA(props) {
         <div className="questions-container container">
             <div className="add-new-question">
                 <div className="col-12">
-                    <label>Select Quiz:</label>
+                    <label>{t('quizqa.selectquiz')}</label>
                     <Select
                         defaultValue={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -285,17 +289,17 @@ export default function QuizQA(props) {
                     />
                 </div>
                 <div className="mt-3">
-                    <div>Add question: </div>
+                    <div>{t('quizqa.addquestion')}: </div>
                     {questions && questions.length > 0 && questions.map((question, index) => {
                         return (
                             <div className="question-main my-3" key={question.id}>
                                 <div className="row question-content">
                                     <div className="form-floating mt-3 col-6">
                                         <input type="text" className="form-control" placeholder="Question: {index + 1}" defaultValue={question.description} onChange={(event) => handleOnChangeQuestion("QUESTION", question.id, event.target.value)} />
-                                        <label>Question: {index + 1}</label>
+                                        <label>{t('quizqa.question')}: {index + 1}</label>
                                     </div>
-                                    <div className="col-2 px-3 mt-3 d-flex flex-column align-items-center">
-                                        <label htmlFor={`${question.id}`} role="button" className="btn btn-outline-secondary ">Upload Image</label>
+                                    <div className="col-3 px-3 mt-3 d-flex flex-column align-items-center">
+                                        <label htmlFor={`${question.id}`} role="button" className="btn btn-outline-secondary ">{t('quizqa.uploadimage')}</label>
                                         <input id={`${question.id}`} hidden type="file" className="form-control" onChange={(event) => handleOnChangeFileQuestion(question.id, event)} />
                                         <span>{question.imageName ? <span style={{ cursor: 'pointer' }} onClick={() => handlePreviewImage(question.id)}>{question.imageName}</span> : "0 file is uploaded"}</span>
                                     </div>
@@ -317,7 +321,7 @@ export default function QuizQA(props) {
                                                 <input type="checkbox" className="form-check-input" checked={answer.isCorrect} onChange={(event) => handleAnswerQuestion("CHECKBOX", answer.id, question.id, event.target.checked)} />
                                                 <div className="form-floating mx-3 col-6">
                                                     <input type="text" className="form-control" placeholder="Answer {index + 1}" defaultValue={answer.description} onChange={(event) => handleAnswerQuestion("INPUT", answer.id, question.id, event.target.value)} />
-                                                    <label>Answer: {index + 1}</label>
+                                                    <label>{t('quizqa.answer')}: {index + 1}</label>
                                                 </div>
                                                 <div className="col-3 d-flex align-items-center gap-2">
                                                     <button className="btn btn-success d-flex">
@@ -338,7 +342,7 @@ export default function QuizQA(props) {
                     })}
                     {questions && questions.length > 0 &&
                         <div>
-                            <button onClick={() => handleSubmitQuestionForQuiz()} className="btn btn-warning">Save Questions</button>
+                            <button onClick={() => handleSubmitQuestionForQuiz()} className="btn btn-warning">{t('quizqa.save')}</button>
                         </div>
                     }
                 </div>

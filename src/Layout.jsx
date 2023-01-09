@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
@@ -24,34 +24,37 @@ const NotFound = () => {
 export default function Layout() {
     return (
         <>
-            <Routes>
-                <Route exact path="/" element={<App />}>
-                    <Route index element={<Home />} />
-                    <Route exact path="/user" element={<PrivateRoute><User/></PrivateRoute>} />
-                    <Route exact path="/user/quiz/:id" element={<DetailQuiz />} />
-                </Route>
-                <Route exact path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
-                    <Route index element={<Dashboard />} />
-                    <Route exact path="manage-user" element={<ManageUsers />} />
-                    <Route exact path="manage-quiz" element={<ManageQuiz />} />
-                    <Route exact path="manage-question" element={<Questions />} />
-                </Route>
-                <Route exact path='/login' element={<Login />} />
-                <Route exact path='/register' element={<Register />} />
-                <Route exact path="*" element={<NotFound />} />
-            </Routes>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+            <Suspense fallback={<h1>Loading profile...</h1>}>
+                <Routes>
+                    <Route exact path="/" element={<App />}>
+                        <Route index element={<Home />} />
+                        <Route exact path="/user" element={<PrivateRoute><User/></PrivateRoute>} />
+                        <Route exact path="/user/quiz/:id" element={<DetailQuiz />} />
+                    </Route>
+                    <Route exact path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
+                        <Route index element={<Dashboard />} />
+                        <Route exact path="manage-user" element={<ManageUsers />} />
+                        <Route exact path="manage-quiz" element={<ManageQuiz />} />
+                        <Route exact path="manage-question" element={<Questions />} />
+                    </Route>
+                    <Route exact path='/login' element={<Login />} />
+                    <Route exact path='/register' element={<Register />} />
+                    <Route exact path="*" element={<NotFound />} />
+                </Routes>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+
+            </Suspense>
         </>
     )
 }
