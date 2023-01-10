@@ -76,12 +76,24 @@
             border-radius: 5px;
             padding: 10px;
             text-align: center;
+            .total-title{
+              font-size: 24px;
+              font-weight: 500;
+            }
+            .total-body{
+              font-size: 36px;
+              font-weight: bold;
+              display: flex;
+              justify-content: center;
+            }
           }
         }
       }
     }
     &-right {
-      &-total {}
+      &-total {
+        display: block
+      }
     }
   }
 }

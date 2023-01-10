@@ -118,7 +118,10 @@ const postUpdateInsertQA = (data) => {
 }
 
 const logout = (email, refresh_token) => {
-    return axios.post('api/v1/logout', {email, refresh_token});
-
+    return axios.post('api/v1/logout', { email, refresh_token });
 }
-export { postCresteNewUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersPaginate, postLogin, postRegister, getQuizByUser, getDataQuestions, postSubmitQuiz, postCreateNewQuiz, getAllDataQuizForAdmin, putUpdateDataQuiz, deleteQuiz, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, postAssignQuiz, getQuizWithQA, postUpdateInsertQA, logout }
+// Dashboard
+const getOverView = () => {
+    return axios.get(`api/v1/overview`);
+}
+export { postCresteNewUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersPaginate, postLogin, postRegister, getQuizByUser, getDataQuestions, postSubmitQuiz, postCreateNewQuiz, getAllDataQuizForAdmin, putUpdateDataQuiz, deleteQuiz, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, postAssignQuiz, getQuizWithQA, postUpdateInsertQA, logout, getOverView }
