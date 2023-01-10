@@ -12,7 +12,9 @@
         "login": "Đăng Nhập",
         "signup": "Đăng Ký",
         "profile": "Thông tin cá nhân",
-        "logout": "Đăng Xuất"
+        "logout": "Đăng Xuất",
+        "setting": "Cài đặt"
+
     },
     "listquiz": {
         "quiz": "Bài test",
