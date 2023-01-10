@@ -29,7 +29,8 @@
         "manage": "Manage",
         "manageuser": "Manage Users",
         "managequiz": "Manage Quizzes",
-        "managequestion": "Manage Questions"
+        "managequestion": "Manage Questions",
+        "dashboard": "Dashboard"
     },
     "managequiz": {
         "managequiz": "Manage Quizzes",
@@ -107,5 +108,12 @@
         "edit": "Edit",
         "delete": "Delete",
         "notdata": "Not found data"
+    },
+    "dashboard": {
+        "title": " Analytics DashBoard",
+        "totalusers": "Total Users",
+        "totalquestions": "Total Questions",
+        "totalanswers": "Total Answers",
+        "totalquiz": "Total Quizs"
     }
 }

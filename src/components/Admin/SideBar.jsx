@@ -61,7 +61,7 @@ export default function SideBar(props) {
                         <MenuItem
                             icon={<MdDashboard />}
                         >
-                            Dashboard
+                            {t('sidebar.dashboard')}
                             <Link to="/admin" />
                         </MenuItem>
                     </Menu>

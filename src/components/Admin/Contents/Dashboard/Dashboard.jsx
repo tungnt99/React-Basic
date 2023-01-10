@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../../assets/admin.scss';
 import { BarChart, Legend, Bar, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { getOverView } from '../../../../services/apiServices';
+import { useTranslation } from 'react-i18next';
 
 export default function DashBoard(props) {
+  // translation
+  const { t } = useTranslation();
+  // end translation
   const [title] = useState('Dashboard');
   useEffect(() => {
     document.title = title;
@@ -45,7 +49,7 @@ export default function DashBoard(props) {
   return (
     <div className='dashboard-container container'>
       <div className='dashboard-title'>
-        Analytics DashBoard
+        {t('dashboard.title')}
       </div>
       <div className='dashboard-content row'>
         <div className='dashboard-content-left col-md-5'>
@@ -53,7 +57,7 @@ export default function DashBoard(props) {
             <div className='child col-6'>
               <div className='child-item'>
                 <div className='total-title'>
-                  Total users
+                  {t('dashboard.totalusers')}
                 </div>
                 <div className='total-body'>
                   {dataOverView && dataOverView.users && dataOverView.users.total ?
@@ -67,7 +71,7 @@ export default function DashBoard(props) {
             <div className='child col-6'>
               <div className='child-item'>
                 <div className='total-title'>
-                  Total Quizzes
+                  {t('dashboard.totalquiz')}
                 </div>
                 <div className='total-body'>
                   {dataOverView && dataOverView.others && dataOverView.others.countQuiz ?
@@ -81,7 +85,7 @@ export default function DashBoard(props) {
             <div className='child col-6'>
               <div className='child-item'>
                 <div className='total-title'>
-                  Total Questions
+                  {t('dashboard.totalquestions')}
                 </div>
                 <div className='total-body'>
                   {dataOverView && dataOverView.others && dataOverView.others.countQuestions ?
@@ -95,7 +99,7 @@ export default function DashBoard(props) {
             <div className='child col-6'>
               <div className='child-item'>
                 <div className='total-title'>
-                  Total Answers
+                  {t('dashboard.totalanswers')}
                 </div>
                 <div className='total-body'>
                   {dataOverView && dataOverView.others && dataOverView.others.countAnswers ?

@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import SideBar from './SideBar'
 import { FaBars } from 'react-icons/fa';
 import './assets/admin.scss'
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useTranslation } from 'react-i18next';
 import Language from '../Header/Language';
+import { logout } from '../../services/apiServices';
+import { useDispatch, useSelector } from 'react-redux';
+import { doLogout } from '../../redux/action/useAction';
+import { toast } from 'react-toastify';
 
 
 export default function Admin(props) {
@@ -20,6 +24,20 @@ export default function Admin(props) {
   useEffect(() => {
     document.title = title;
   }, [title])
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const account = useSelector(state => state.user.account)
+
+  const handleLogout = async() => {
+    let res = await logout(account.email, account.refresh_token)
+    if(res && res.EC === 0){
+      dispatch(doLogout(res));
+      toast.success(res.EM);
+      navigate('/login');
+    }else{
+      toast.error(res.EM);
+    }
+  }
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
@@ -32,7 +50,7 @@ export default function Admin(props) {
             <Language />
             <NavDropdown title={t('header.setting')} id="basic-nav-dropdown-admin">
               <NavDropdown.Item className='nav-link px-3' to="#action/3.3">{t('header.profile')}</NavDropdown.Item>
-              <NavDropdown.Item className='nav-link px-3'>{t('header.logout')}</NavDropdown.Item>
+              <NavDropdown.Item className='nav-link px-3' onClick={() => handleLogout()}>{t('header.logout')}</NavDropdown.Item>
             </NavDropdown>
           </div>
         </div>

@@ -30,7 +30,9 @@
         "manage": "Quản lý",
         "manageuser": "Quản lý Users",
         "managequiz": "Quản lý bài Quiz",
-        "managequestion": "Quản lý câu hỏi"
+        "managequestion": "Quản lý câu hỏi",
+        "dashboard": "Bảng điều khiển"
+
     },
     "managequiz": {
         "managequiz": "Quản lý câu hỏi",
@@ -108,5 +110,12 @@
         "edit": "Sửa",
         "delete": "Xóa",
         "notdata": "Không tìm thấy dữ liệu"
+    },
+    "dashboard": {
+        "title": "Bảng điều khiển phân tích",
+        "totalusers": "Tổng số người dùng",
+        "totalquestions": "Tổng số câu hỏi",
+        "totalanswers": "Tổng số câu trả lời",
+        "totalquiz": "Tổng bài kiểm tra"
     }
 }
