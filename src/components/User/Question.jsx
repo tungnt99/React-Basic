@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
 import { useTranslation } from 'react-i18next';
-
+import { IoIosClose, IoIosCheckmark } from "react-icons/io";
 export default function Question(props) {
     // translation
     const { t } = useTranslation();
     // end translation
     const [isPreviewImage, setIsPreviewImage] = useState(false);
-    const { data, index, handleCheckBox } = props;
+    const { data, index, handleCheckBox, isShowAnswer } = props;
     // console.log('data: ', data, 'index: ', index);
     if (_.isEmpty(data)) {
         return <></>;
@@ -25,7 +25,7 @@ export default function Question(props) {
             <h3 className="question-title">{t('listquiz.question')} {index + 1}: {data.questionDescription} ?</h3>
             {data.image ?
                 <div className="question-image">
-                    <img src={`data:image/jpeg;base64, ${data.image}`} alt="anh" onClick={() => setIsPreviewImage(true)}/>
+                    <img src={`data:image/jpeg;base64, ${data.image}`} alt="anh" onClick={() => setIsPreviewImage(true)} />
                     {isPreviewImage === true &&
 
                         <Lightbox image={`data:image/jpeg;base64, ${data.image}`} title="Question Image" onClose={() => setIsPreviewImage(false)}></Lightbox>
@@ -33,7 +33,7 @@ export default function Question(props) {
                 </div>
                 :
                 <div className="question-image not-found">
-                {t('listquiz.notimage')}
+                    {t('listquiz.notimage')}
                 </div>
             }
             <div className="question-answer">
@@ -42,6 +42,7 @@ export default function Question(props) {
                         <div key={`answer-${index}`}>
                             <div className="form-check">
                                 <input
+                                    id={`checkbox-${index}`}
                                     className="form-check-input"
                                     type="checkbox"
                                     role="button"
@@ -49,11 +50,16 @@ export default function Question(props) {
                                     value={answer.description}
                                     onChange={(event) => handleHanleCheckbox(event, answer.id, data.questionId)}
                                 />
-                                <label
-                                    className="form-check-label"
-                                >
+                                <label className="form-check-label" htmlFor={`checkbox-${index}`} >
                                     {answer.description}
                                 </label>
+                                {isShowAnswer === true &&
+                                    <>
+                                        {answer.isSelected === true && answer.isCorrect === false && <IoIosClose className='incorrect' />}
+                                        {answer.isCorrect === true && <IoIosCheckmark className='correct' />}
+                                    </>
+                                }
+                              
                             </div>
                         </div>
 

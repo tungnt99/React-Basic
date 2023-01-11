@@ -9,9 +9,9 @@ import RightContent from './RightContent/RightContent';
 import { useTranslation } from 'react-i18next';
 
 export default function DetailQuiz(props) {
-       // translation
-       const { t } = useTranslation();
-       // end translation
+    // translation
+    const { t } = useTranslation();
+    // end translation
     const [title] = useState('Test Quiz User');
     const location = useLocation(); //lấy state được trả ra từ "state: { quizTitle: item.description }"
     // console.log('location: ', location);
@@ -27,6 +27,11 @@ export default function DetailQuiz(props) {
 
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataModalResult, setDataModalResult] = useState({});
+    // state show result
+    const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
+    const [isShowAnswer, setIsShowAnswer] = useState(false);
+    // end state show result
+
     useEffect(() => {
         document.title = title;
         fetchDataQuestion();
@@ -58,6 +63,7 @@ export default function DetailQuiz(props) {
                         // console.log('item: ', item);
                         // console.log('items answer', item.answers);
                         item.answers.isSelected = false; // Mặc định đặt câu trả lời là false
+                        item.answers.isCorrect = false; //đặt mặc định đáp án sẽ là false
                         answers.push(item.answers); //push các đáp án vào mảng answers //item.answers -> các đáp án 
                     })
                     answers = _.orderBy(answers, ['id'], ['asc']); //sắp xếp câu hỏi theo id
@@ -105,7 +111,7 @@ export default function DetailQuiz(props) {
     }
 
     // submit đáp án
-    const handleFinishQuiz = async() => {
+    const handleFinishQuiz = async () => {
         // console.log('submit', dataQuiz);
         // {
         //     "quizId": 1,
@@ -148,17 +154,46 @@ export default function DetailQuiz(props) {
 
             let res = await postSubmitQuiz(payload);
             // console.log('submit res: ', res);
-            if(res && res.EC === 0){
+            if (res && res.EC === 0) {
+                setIsSubmitQuiz(true);
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
                     countTotal: res.DT.countTotal,
                     quizData: res.DT.quizData
                 })
                 setIsShowModalResult(true);
-            }else{
+
+                // update Dataquiz with correct answer
+                if (res.DT && res.DT.quizData) {
+                    let dataQuizClone = _.cloneDeep(dataQuiz);
+                    let a = res.DT.quizData;
+
+                    for (let q of a) {
+                        for (let i = 0; i < dataQuizClone.length; i++) {
+                            if (+q.questionId === +dataQuizClone[i].questionId) {
+                                // update answer
+                                let newAnswers = [];
+                                for (let j = 0; j < dataQuizClone[i].answers.length; j++) {
+                                    let s = q.systemAnswers.find(item => +item.id === +dataQuizClone[i].answers[j].id)
+                                    if (s) {
+                                        dataQuizClone[i].answers[j].isCorrect = true
+                                    }
+                                    newAnswers.push(dataQuizClone[i].answers[j]);
+                                }
+                                dataQuizClone[i].answers = newAnswers;
+                            }
+                        }
+                    }
+                    setDataQuiz(dataQuizClone);
+                }
+            } else {
                 alert('An error occurred');
             }
         }
+    }
+    const handleShowAnswer = () => {
+        if (!isSubmitQuiz) return;
+        setIsShowAnswer(true);
     }
     return (
         <div className="detail-quiz-container container">
@@ -171,27 +206,30 @@ export default function DetailQuiz(props) {
                                 data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
                                 index={index}
                                 handleCheckBox={handleCheckBox}
+                                isShowAnswer={isShowAnswer}
+                                isSubmitQuiz={isSubmitQuiz}
                             />
                         </div>
                     </div>
                     <div className="question-prev-next" style={{ margin: '0 auto', display: 'table' }}>
                         <button className="btn btn-danger mx-2" onClick={() => handlePrev()}>{t('listquiz.prev')}</button>
                         <button className="btn btn-success mx-2" onClick={() => handleNext()}>{t('listquiz.next')}</button>
-                        <button className="btn btn-warning mx-2" onClick={() => handleFinishQuiz()}>{t('listquiz.finish')}</button>
+                        <button className="btn btn-warning mx-2" onClick={() => handleFinishQuiz()} disabled={isSubmitQuiz}>{t('listquiz.finish')}</button>
                     </div>
                 </div>
                 <div className="right-content col-md-4">
-                    <RightContent 
+                    <RightContent
                         dataQuiz={dataQuiz}
                         handleFinishQuiz={handleFinishQuiz}
                         setIndex={setIndex}
                     />
                 </div>
             </div>
-            <ModalResult 
+            <ModalResult
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}
                 dataModalResult={dataModalResult}
+                handleShowAnswer={handleShowAnswer}
             />
         </div>
     )
