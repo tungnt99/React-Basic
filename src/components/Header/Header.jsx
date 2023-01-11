@@ -51,6 +51,9 @@ export default function Header() {
     }
 
   }
+  const handleClickProfile = () => {
+    navigate('/profile');
+  }
   return (
     <Navbar>
       <Container className='navbar-container'>
@@ -82,7 +85,7 @@ export default function Header() {
                 }}
                   id="basic-nav-dropdown"
                   className='nav-dropdown'>
-                  <NavDropdown.Item>{t('header.profile')}</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => handleClickProfile()}>{t('header.profile')}</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => handleLogout()}>{t('header.logout')}</NavDropdown.Item>
                 </NavDropdown>
               </>

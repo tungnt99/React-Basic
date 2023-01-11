@@ -7,7 +7,8 @@ const INITIAL_STATE = {
         email: '',
         username: '',
         image: '',
-        role: ''
+        role: '',
+        password: '',
     },
     // khai báo biến kiểm tra người dùng đăng nhập hay chưa
     isAuthenticated: false
@@ -24,7 +25,9 @@ const useReducer = (state = INITIAL_STATE, action) => {
                     email: action?.payload?.DT?.email,
                     username: action?.payload?.DT?.username,
                     image: action?.payload?.DT?.image,
-                    role: action?.payload?.DT?.role
+                    role: action?.payload?.DT?.role,
+                    password: action?.payload?.DT?.password,
+
                 },
                 isAuthenticated: true
 

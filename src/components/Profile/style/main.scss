@@ -1,0 +1,33 @@
+.profile-container{
+    border: 1px solid #ccc;
+    padding: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.user-info-container{
+    padding: 0 20px 20px;
+}
+.img-preview {
+    height: 150px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+   width: 90%;
+   margin: 0 auto;
+    img{
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
+.label-upload{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 30px;
+}

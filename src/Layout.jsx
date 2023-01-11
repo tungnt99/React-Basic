@@ -14,6 +14,7 @@ import DetailQuiz from './components/User/DetailQuiz';
 import ManageQuiz from './components/Admin/Contents/ManageQuiz/ManageQuiz';
 import Questions from './components/Admin/Contents/Question/Questions';
 import PrivateRoute from './routes/PrivateRoute';
+import Profile from './components/Profile/Profile';
 const NotFound = () => {
     return(
       <div className="container mt-3 alert alert-danger">
@@ -30,6 +31,7 @@ export default function Layout() {
                         <Route index element={<Home />} />
                         <Route exact path="/user" element={<PrivateRoute><User/></PrivateRoute>} />
                         <Route exact path="/user/quiz/:id" element={<DetailQuiz />} />
+                        <Route exact path="/profile" element={<Profile />} />
                     </Route>
                     <Route exact path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
                         <Route index element={<Dashboard />} />

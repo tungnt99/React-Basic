@@ -14,11 +14,10 @@ const getAllUsers = () => {
     return axios.get('api/v1/participant/all');
 }
 
-const putUpdateUser = (id, userName, role, image) => {
+const putUpdateUser = (id, username, image) => {
     const data = new FormData();
     data.append('id', id);
-    data.append('username', userName);
-    data.append('role', role);
+    data.append('username', username);
     data.append('userImage', image);
 
     return axios.put("api/v1/participant", data);
@@ -124,4 +123,22 @@ const logout = (email, refresh_token) => {
 const getOverView = () => {
     return axios.get(`api/v1/overview`);
 }
-export { postCresteNewUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersPaginate, postLogin, postRegister, getQuizByUser, getDataQuestions, postSubmitQuiz, postCreateNewQuiz, getAllDataQuizForAdmin, putUpdateDataQuiz, deleteQuiz, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, postAssignQuiz, getQuizWithQA, postUpdateInsertQA, logout, getOverView }
+const refreshToken = (email, refresh_token) => {
+    return axios.post("api/v1/refresh-token", { email, refresh_token });
+}
+const updateProfile = (id, username, image) => {
+    // submit data
+    const data = new FormData();
+    data.append("id", id);
+    data.append("username", username);
+    data.append("userImage", image);
+    return axios.post("api/v1/profile", data);
+};
+const changePassword = (current_password, new_password) => {
+    // submit data
+    return axios.post(`api/v1/change-password`, {current_password, new_password})
+};
+const getHistory = () => {
+    return axios.get("api/v1/history");
+}
+export { postCresteNewUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersPaginate, postLogin, postRegister, getQuizByUser, getDataQuestions, postSubmitQuiz, postCreateNewQuiz, getAllDataQuizForAdmin, putUpdateDataQuiz, deleteQuiz, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, postAssignQuiz, getQuizWithQA, postUpdateInsertQA, logout, getOverView, refreshToken, updateProfile, changePassword, getHistory }
