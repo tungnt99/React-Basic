@@ -89,11 +89,11 @@ export default function Login(props) {
                 <div className="content-form ">
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type={"email"} value={email} className="form-control" placeholder="bruce@wayne.com" onChange={(event) => setEmail(event.target.value)} />
+                        <input type="email" value={email} className="form-control" placeholder="bruce@wayne.com" onChange={(event) => setEmail(event.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type={"password"} value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} onKeyDown={(event) => handleKeydown(event)}/>
+                        <input type="password" value={password} className="form-control" placeholder="At least 8 characters" onChange={(event) => setPassword(event.target.value)} onKeyDown={(event) => handleKeydown(event)}/>
                     </div>
                     <div className="forgot-password">Forgot password?</div>
                     <div className="btn-login">

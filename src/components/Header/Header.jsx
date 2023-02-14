@@ -78,7 +78,7 @@ export default function Header() {
               <>
                 <span className='user-name'>{account.username}</span>
                 <NavDropdown style={{
-                  backgroundImage: `url(${avatar})`,
+                  backgroundImage: `url(${avatar ? avatar : logo})`,
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat'
