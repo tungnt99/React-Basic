@@ -9,7 +9,13 @@
         }
     }
 }
-
+.table-user-container{
+    .table{
+        .btn--actions--user{
+            width: 70px;
+        }
+    }
+}
 .modal-add-user {
     .img-preview {
         height: 150px;

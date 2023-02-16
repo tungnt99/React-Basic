@@ -12,7 +12,7 @@ export default function ListQuiz(props) {
     useEffect(() => {
         getQuizData();
     }, [])
-
+    
     const getQuizData = async () => {
         const data = await getQuizByUser();
         // console.log("check data quiz", data);
@@ -27,7 +27,7 @@ export default function ListQuiz(props) {
                 <div className='row cart-list'>
                     {listQuiz && listQuiz.length > 0 && listQuiz.map((item, index) => {
                         return (
-                            <div className="card-item col-md-3" key={index}>
+                            <div className="card-item col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" key={index}>
                                 <div className='border border-secondary card-item-content'>
                                     <img src={`data:image/png;base64, ${item.image}`} className="card-img-top" alt="..." />
                                     <div className="card-body">

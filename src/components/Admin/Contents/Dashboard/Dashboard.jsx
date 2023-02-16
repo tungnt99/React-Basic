@@ -52,7 +52,7 @@ export default function DashBoard(props) {
         {t('dashboard.title')}
       </div>
       <div className='dashboard-content row'>
-        <div className='dashboard-content-left col-md-5'>
+        <div className='dashboard-content-left col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5'>
           <div className='dashboard-content-left-total'>
             <div className='child col-6'>
               <div className='child-item'>
@@ -112,7 +112,7 @@ export default function DashBoard(props) {
             </div>
           </div>
         </div>
-        <div className='dashboard-content-right col-md-7'>
+        <div className='dashboard-content-right col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7'>
           <div className='dashboard-content-right-total'>
             <BarChart width={650} height={350} data={dataChart}>
               <CartesianGrid strokeDasharray="3 3" />

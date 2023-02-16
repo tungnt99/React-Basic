@@ -197,8 +197,8 @@ export default function DetailQuiz(props) {
     }
     return (
         <div className="detail-quiz-container container">
-            <div className="d-flex justify-content-evenly">
-                <div className="left-content col-md-7">
+            <div className="quiz-detail--body">
+                <div className="left-content col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                     <div className="question-container">
                         <h2 className="title"><strong>{t('listquiz.quiz')} {quizId}: {location?.state.quizTitle}</strong> </h2> <hr />
                         <div className="question-content">
@@ -217,7 +217,7 @@ export default function DetailQuiz(props) {
                         <button className="btn btn-warning mx-2" onClick={() => handleFinishQuiz()} disabled={isSubmitQuiz}>{t('listquiz.finish')}</button>
                     </div>
                 </div>
-                <div className="right-content col-md-4">
+                <div className="right-content col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <RightContent
                         dataQuiz={dataQuiz}
                         handleFinishQuiz={handleFinishQuiz}

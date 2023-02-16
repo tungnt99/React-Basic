@@ -36,9 +36,9 @@ export default function TableUserPaginate(props) {
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <button className='mx-2 btn btn-info' onClick={() => props.handleModalViewUser(item)}>{t('tableuser.view')}</button>
-                                    <button className='mx-2 btn btn-warning' onClick={() => props.handleModalUpdateUser(item)}>{t('tableuser.edit')}</button>
-                                    <button className='mx-2 btn btn-danger' onClick={() => props.handleModalDeleteUser(item)}>{t('tableuser.delete')}</button>
+                                    <button className='mx-2 my-1 btn--actions--user btn btn-info' onClick={() => props.handleModalViewUser(item)}>{t('tableuser.view')}</button>
+                                    <button className='mx-2 my-1 btn--actions--user btn btn-warning' onClick={() => props.handleModalUpdateUser(item)}>{t('tableuser.edit')}</button>
+                                    <button className='mx-2 my-1 btn--actions--user btn btn-danger' onClick={() => props.handleModalDeleteUser(item)}>{t('tableuser.delete')}</button>
 
                                 </td>
 

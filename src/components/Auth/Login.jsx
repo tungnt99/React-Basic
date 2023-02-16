@@ -84,7 +84,7 @@ export default function Login(props) {
                 <Language />
             </div>
             <div className="title col-4 mx-auto">Typeform</div>
-            <div className="auth-content col-4 mx-auto">
+            <div className="auth-content col-8 col-sm-5 col-md-5 col-lg-4 col-xl-4 mx-auto">
                 <div className="welcome ">Hello, who’s this?</div>
                 <div className="content-form ">
                     <div className="form-group">

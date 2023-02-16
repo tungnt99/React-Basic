@@ -27,9 +27,9 @@ export default function TableQuiz(props) {
                                 <td>{item.description}</td>
                                 <td>{item.difficulty}</td>
                                 <td>
-                                    <button className='btn btn-info' onClick={() => props.handleModalViewQuiz(item)}>{t('tablequiz.view')}</button>
-                                    <button className='btn btn-warning mx-2' onClick={() => props.handleModalUpdateQuiz(item)}>{t('tablequiz.edit')}</button>
-                                    <button className='btn btn-dark' onClick={() => props.handleModalDeleteQuiz(item)}>{t('tablequiz.delete')}</button>
+                                    <button style={{width: "70px"}} className='mx-1 my-1 btn btn-info' onClick={() => props.handleModalViewQuiz(item)}>{t('tablequiz.view')}</button>
+                                    <button style={{width: "70px"}} className='mx-1 my-1 btn btn-warning' onClick={() => props.handleModalUpdateQuiz(item)}>{t('tablequiz.edit')}</button>
+                                    <button style={{width: "70px"}} className='mx-1 my-1 btn btn-dark' onClick={() => props.handleModalDeleteQuiz(item)}>{t('tablequiz.delete')}</button>
                                 </td>
                             </tr>
                         )
