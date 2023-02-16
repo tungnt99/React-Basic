@@ -1,0 +1,121 @@
+{
+    "homepage": {
+        "hometitle": "Có cách nào hay hơn hỏi Thanh Tùng",
+        "homedesc": "Bạn không muốn làm một hình thức nhàm chán. Và khán giả của bạn sẽ không trả lời một. Thay vào đó, hãy tạo một kiểu chữ—và làm cho mọi người hài lòng.",
+        "button1": "Bắt đầu - hoàn toàn miễn phí",
+        "button2": "Làm bài kiểm tra ngay bây giờ"
+    },
+    "header": {
+        "home": "Trang Chủ",
+        "user": "Người Dùng",
+        "admin": "Quản Trị Viên",
+        "login": "Đăng Nhập",
+        "signup": "Đăng Ký",
+        "profile": "Thông tin cá nhân",
+        "logout": "Đăng Xuất",
+        "setting": "Cài đặt"
+
+    },
+    "listquiz": {
+        "quiz": "Bài test",
+        "start": "Bắt đầu",
+        "noquiz": "Bây giờ bạn không có bài kiểm tra nào...",
+        "prev": "Câu trước",
+        "next": "Câu tiếp",
+        "finish": "Nộp bài",
+        "question": "Câu hỏi số ",
+        "notimage": "Không tìm thấy hình ảnh"
+    },
+    "sidebar":{
+        "manage": "Quản lý",
+        "manageuser": "Quản lý Users",
+        "managequiz": "Quản lý bài Quiz",
+        "managequestion": "Quản lý câu hỏi",
+        "dashboard": "Bảng điều khiển"
+
+    },
+    "managequiz": {
+        "managequiz": "Quản lý câu hỏi",
+        "addnewquiz": "Thêm câu đố hỏi",
+        "name": "Tên câu hỏi",
+        "desc": "Nội dung câu hỏi",
+        "type": "Xếp loại",
+        "easy": "Dễ",
+        "medium": "Trung bình",
+        "hard": "Khó",
+        "uploadimage": "Tải lên hình ảnh",
+        "preview": "Xem trước hình ảnh",
+        "create": "Thêm mới câu hỏi",
+        "updateqa": "Cập nhật câu hỏi Q/A",
+        "assign": "Chỉ định cho người dùng",
+        "updatequiz": "Kiểm tra cập nhật phương thức",
+        "save": "Lưu thay đổi",
+        "close": "Đóng",
+        "viewquiz": "Chế độ xem bài kiểm tra"
+    },
+    "tablequiz": {
+        "name": "Tên câu hỏi",
+        "desc": "Nội dung câu hỏi",
+        "type": "Xếp loại",
+        "action": "Mở rộng",
+        "view": "Xem trước",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "notdata": "Không tìm thấy dữ liệu"
+    },
+    "assgin": {
+        "selectquiz": "Lựa chọn bài test",
+        "selectuser": "Lựa chọn người dùng",
+        "assign": "Giao"
+    },
+    "deletequiz": {
+        "title": "Xác nhận Xóa bài kiểm tra?",
+        "body": "Bạn có chắc chắn xóa quiz.name này",
+        "cancel": "Hủy bỏ",
+        "confirm": "Xác nhận"
+    },
+    "quizqa": {
+        "selectquiz": "Chọn bài kiểm tra:",
+        "addquestion": "Thêm câu hỏi",
+        "question": "Câu hỏi",
+        "uploadimage": "Tải lên hình ảnh",
+        "answer": "Câu trả lời",
+        "save": "Lưu câu hỏi"
+    },
+    "createuser": {
+        "adduser": "Thêm mới người dùng",
+        "password": "Mật khẩu",
+        "username": "Tên người dùng",
+        "role": "Vai trò",
+        "user": "Người dùng",
+        "admin": "Quản Trị Viên",
+        "uploadimage": "Tải lên hình ảnh tệp",
+        "preview": "Xem trước hình ảnh",
+        "close": "Đóng",
+        "save": "Lưu thay đổi",
+        "updateuser": "Người dùng cập nhật phương thức",
+        "viewuser": "Chế độ xem người dùng"
+    },
+    "deleteuser": {
+        "title": "Xác nhận Xóa người dùng",
+        "body": "Bạn có chắc chắn xóa người dùng này có email",
+        "cancel": "Hủy bỏ",
+        "confirm": "Xác nhận"
+    },
+    "tableuser": {
+        "username": "Tên người dùng",
+        "role": "Vai trò",
+        "action": "Mở rộng",
+        "view": "Hiển thị",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "notdata": "Không tìm thấy dữ liệu"
+    },
+    "dashboard": {
+        "title": "Bảng điều khiển phân tích",
+        "totalusers": "Tổng số người dùng",
+        "totalquestions": "Tổng số câu hỏi",
+        "totalanswers": "Tổng số câu trả lời",
+        "totalquiz": "Tổng bài kiểm tra"
+    }
+}

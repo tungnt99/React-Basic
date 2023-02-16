@@ -1,0 +1,119 @@
+{
+    "homepage": {
+        "hometitle": "There's a better way to ask Thanh Tung",
+        "homedesc": "You don't want to make a boring form. And your audience won't answer one. Create a typeform instead—and make everyone happy.",
+        "button1": "Get started - it's free",
+        "button2": "Doing Quiz Now"
+    },
+    "header": {
+        "home": "Home",
+        "user": "User",
+        "admin": "Admin",
+        "login": "Login",
+        "signup": "Sign up",
+        "profile": "Profile",
+        "logout": "Logout",
+        "setting": "Setting"
+    },
+    "listquiz": {
+        "quiz": "Quiz",
+        "start": "Start Now",
+        "noquiz": "You don't any quiz now...",
+        "prev": "Prev",
+        "next": "Next",
+        "finish": "Finish",
+        "question": "Question",
+        "notimage": "Image not found"
+    },
+    "sidebar":{
+        "manage": "Manage",
+        "manageuser": "Manage Users",
+        "managequiz": "Manage Quizzes",
+        "managequestion": "Manage Questions",
+        "dashboard": "Dashboard"
+    },
+    "managequiz": {
+        "managequiz": "Manage Quizzes",
+        "addnewquiz": "Add New Quizzes",
+        "name": "Name",
+        "desc": "Description",
+        "type": "Type",
+        "easy": "EASY",
+        "medium": "MEDIUM",
+        "hard": "HARD",
+        "uploadimage": "Upload Image",
+        "preview": "Preview Image",
+        "create": "Create Quiz",
+        "updateqa": "Update Q/A Quizzes",
+        "assign": "Assign to Users",
+        "updatequiz": "Modal Update Quiz",
+        "save": "Save Changes",
+        "close": "Close",
+        "viewquiz": "Modal View Quiz"
+    },
+    "tablequiz": {
+        "name": "Name",
+        "desc": "Description",
+        "type": "Type",
+        "action": "Action",
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete",
+        "notdata": "Not found data"
+    },
+    "assgin": {
+        "selectquiz": "Select Quiz",
+        "selectuser": "Select User",
+        "assign": "Assign"
+    },
+    "deletequiz": {
+        "title": "Confirm Delete Quiz?",
+        "body": "Are you sure delete this quiz.name",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "quizqa": {
+        "selectquiz": "Select Quiz:",
+        "addquestion": "Add Question",
+        "question": "Question",
+        "uploadimage": "Upload Image",
+        "answer": "Answer",
+        "save": "Save Question"
+    },
+    "createuser": {
+        "adduser": "Add New User",
+        "password": "Password",
+        "username": "Username",
+        "role": "Role",
+        "user": "USER",
+        "admin": "ADMIN",
+        "uploadimage": "Upload File Image",
+        "preview": "Preview Image",
+        "close": "Close",
+        "save": "Save Changes",
+        "updateuser": "Modal Update User",
+        "viewuser": "Modal View User"
+    },
+    "deleteuser": {
+        "title": "Confirm Delete User",
+        "body": "Are you sure delete this user.email",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "tableuser": {
+        "username": "User Name",
+        "role": "Role",
+        "action": "Action",
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete",
+        "notdata": "Not found data"
+    },
+    "dashboard": {
+        "title": " Analytics DashBoard",
+        "totalusers": "Total Users",
+        "totalquestions": "Total Questions",
+        "totalanswers": "Total Answers",
+        "totalquiz": "Total Quizs"
+    }
+}
